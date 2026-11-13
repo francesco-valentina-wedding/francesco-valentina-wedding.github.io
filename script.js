@@ -40,6 +40,23 @@ const WMO_DESCRIPTIONS = {
   95: 'Temporale', 96: 'Temporale con grandine', 99: 'Temporale forte'
 };
 
+// Line icons per WMO group. Width/height attributes keep them small even on a
+// page that does not style .wx.
+const WX_PATHS = {
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/>',
+  partly: '<path d="M8.5 3.5v1.6M3.5 8.5h1.6M4.9 4.9l1.1 1.1M12.1 4.9 11 6"/><path d="M6.2 11.2a3.6 3.6 0 0 1 6.3-3"/><path d="M8 19.5h9.5a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.6 1.4A2.8 2.8 0 0 0 8 19.5z"/>',
+  cloud: '<path d="M7 18.5h10.5a4 4 0 0 0 .4-8 5.6 5.6 0 0 0-10.8 1.6A3.2 3.2 0 0 0 7 18.5z"/>',
+  rain: '<path d="M7 15h10.5a4 4 0 0 0 .4-8 5.6 5.6 0 0 0-10.8 1.6A3.2 3.2 0 0 0 7 15z"/><path d="M9 17.5l-1 2.5M13 17.5l-1 2.5M17 17.5l-1 2.5"/>',
+  storm: '<path d="M7 14.5h10.5a4 4 0 0 0 .4-8 5.6 5.6 0 0 0-10.8 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M12.5 14.5 10.5 18h3l-2 3.5"/>',
+  fog: '<path d="M4 9h16M6 13h12M4 17h16"/>'
+};
+
+function wxIcon(code) {
+  const kind = code <= 1 ? 'sun' : code === 2 ? 'partly' : code === 3 ? 'cloud'
+    : code < 50 ? 'fog' : code >= 95 ? 'storm' : 'rain';
+  return `<span class="wx wx-${kind}" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${WX_PATHS[kind]}</svg></span>`;
+}
+
 const WEATHER_DAILY = 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum';
 const HISTORY_YEARS = 4;
 // Open-Meteo forecasts reach 16 days ahead; keep a margin.
@@ -55,6 +72,7 @@ async function fetchDay(base, date) {
   if (!res.ok) throw new Error(res.status);
   const d = (await res.json()).daily;
   return {
+    code: d.weather_code[0],
     desc: WMO_DESCRIPTIONS[d.weather_code[0]] || 'Condizioni variabili',
     max: Math.round(d.temperature_2m_max[0]),
     min: Math.round(d.temperature_2m_min[0]),
@@ -69,7 +87,7 @@ async function renderWeather() {
     if (WEDDING_DATE - new Date() <= FORECAST_WINDOW_DAYS * 86400000) {
       const f = await fetchDay('https://api.open-meteo.com/v1/forecast', '2027-05-22');
       el.innerHTML = `
-        <p class="weather-now">${f.desc}, ${f.max}° / ${f.min}°C</p>
+        <p class="weather-now">${wxIcon(f.code)}${f.desc}, ${f.max}° / ${f.min}°C</p>
         <p class="weather-note">Previsione per sabato 22 maggio 2027 sulla zona della cerimonia.</p>
       `;
       return;
@@ -84,9 +102,11 @@ async function renderWeather() {
     );
     const rows = days.map((d, i) => `
       <li><span class="weather-year">${years[i]}</span>
-        <span>${d.desc}${d.rain >= 1 ? `, ${Math.round(d.rain)} mm` : ''}</span>
+        <span>${wxIcon(d.code)}${d.desc}${d.rain >= 1 ? `, ${Math.round(d.rain)} mm` : ''}</span>
         <span class="weather-temp">${d.max}° / ${d.min}°</span></li>`).join('');
+    const avg = (k) => Math.round(days.reduce((t, d) => t + d[k], 0) / days.length);
     el.innerHTML = `
+      <p class="weather-avg">Il 22 maggio, di solito: massime intorno ai <strong>${avg('max')}°</strong>, minime intorno ai <strong>${avg('min')}°</strong>.</p>
       <p class="weather-note">Com'era il tempo il 22 maggio negli ultimi ${HISTORY_YEARS} anni, sulla zona della cerimonia (massima / minima).</p>
       <ul class="weather-history">${rows}</ul>
       <p class="weather-note">Da circa due settimane prima del matrimonio qui comparirà la previsione per il giorno.</p>
@@ -110,6 +130,7 @@ if (form) {
   const names = form.elements.nomi_accompagnatori;
   const button = form.querySelector('button[type="submit"]');
   const error = document.getElementById('rsvp-error');
+  const label = button.textContent;
 
   // Disabled fields are excluded from FormData, so hidden values are never sent.
   const toggle = (field, show) => {
@@ -146,13 +167,19 @@ if (form) {
       sendToFormspree(new FormData(form))
     ]);
 
+    // Bring the outcome into view: the form is tall and the message would
+    // otherwise appear off screen on a phone.
+    const reveal = (el) => el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (results.some((r) => r.status === 'fulfilled')) {
       form.hidden = true;
-      document.getElementById('rsvp-thanks').hidden = false;
+      const thanks = document.getElementById('rsvp-thanks');
+      thanks.hidden = false;
+      reveal(thanks);
     } else {
       error.hidden = false;
       button.disabled = false;
-      button.textContent = 'Invia';
+      button.textContent = label;
+      reveal(error);
     }
   });
 }

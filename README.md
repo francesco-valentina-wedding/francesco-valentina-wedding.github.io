@@ -1,112 +1,57 @@
-# Invito — variante a pannelli
+# Invito di matrimonio — Francesco & Valentina
 
-Sito statico autonomo: nessuna build, nessuna dipendenza da installare. Basta
-caricare questi file così come sono su un hosting statico (GitHub Pages, Netlify)
-e funziona.
+Sito statico autonomo: nessuna build, nessuna dipendenza da installare.
+Pubblicato su `https://francesco-valentina-wedding.github.io/` (GitHub Pages,
+branch `main`, root). Lo sviluppo avviene su `develop`, il merge su `main` pubblica.
 
-## Contenuto della cartella
+## Contenuto
 
-```
-index.html                              la pagina
-variante-joy.css                        stile
-variante-joy.js                         menu a pannello + foto che si alternano
-script.js                               countdown, meteo, RSVP, animazioni (condiviso con l'altra variante)
-google-apps-script.gs                   copia dello script Google che scrive le risposte RSVP nel foglio
-matrimonio.ics                          evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
-variante-fresca/                        variante alternativa in valutazione (riusa script.js, foto/ e matrimonio.ics)
-foto/noi-*.jpg                          foto della coppia, usate dalla variante fresca
-foto/1.monastero_santa_colonna.jpg      foto del pannello, in ordine
-foto/2.trani-cattedrale.jpg
-foto/3.festa-luci.jpg
-foto/4.corte-bracco.jpg
-foto/og-image.jpg                       anteprima per WhatsApp / Facebook (1200×630)
+```text
+index.html               la pagina
+style.css                stile (palette e font nel blocco :root in cima)
+main.js                  menu, sondaggio "scommesse", modulo canzone/augurio
+script.js                countdown, meteo, RSVP, copia IBAN, animazioni
+google-apps-script.gs    copia dello script Google collegato al foglio (vedi sotto)
+matrimonio.ics           evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
+foto/                    foto del sito; citta-*.jpg vengono da Wikimedia Commons
+foto/og-image.jpg        anteprima per WhatsApp / Facebook (1200×630)
 ```
 
-Tutti i percorsi sono relativi: la cartella si può spostare o rinominare senza
-toccare il codice. Font, mappe, Booking, Google Calendar, Google Photos e il
-generatore di QR sono remoti e non richiedono file locali.
+Tutti i percorsi sono relativi. Font, mappe, Booking, Google Calendar, Google
+Photos, meteo (Open-Meteo) e il generatore di QR sono servizi remoti.
 
-## Indirizzo pubblicato
+**Cache:** i file CSS/JS sono inclusi con `?v=N` in `index.html`. Ad ogni modifica
+di `style.css`, `main.js` o `script.js` va incrementato `N`, altrimenti i browser
+degli invitati continuano a usare la versione vecchia.
 
-`https://francesco-valentina-wedding.github.io/` — repository
-`francesco-valentina-wedding.github.io` nell'organizzazione GitHub
-`francesco-valentina-wedding`, Pages servito dal branch `main` (root).
-Lo sviluppo avviene su `develop`, il merge su `main` pubblica.
-
-## Pubblicare su GitHub dal browser (senza clonare)
-
-### Opzione A — repository nuovo, sito a `https<utente>.github.io/<repo>/`
-
-1. GitHub → **New repository**, nome per esempio `invito-matrimonio-joy`,
-   visibilità **Public** (GitHub Pages sui repo privati richiede un piano a
-   pagamento), **Create repository**.
-2. Nella pagina del repo vuoto: **uploading an existing file**
-   (oppure **Add file → Upload files**).
-3. Aprire questa cartella in Esplora file, selezionare **il contenuto**
-   (`index.html`, i tre `.js`/`.css`, e la cartella `foto`) e trascinarlo nella
-   pagina di GitHub. Non trascinare la cartella `variante-joy` stessa, altrimenti
-   i file finiscono dentro un livello in più e `index.html` non sta alla radice.
-   Trascinando la cartella `foto` GitHub ne mantiene il percorso.
-4. **Commit changes**.
-5. **Settings → Pages**: Source `Deploy from a branch`, Branch `main` / `/ (root)`,
-   **Save**. Dopo un paio di minuti l'indirizzo compare in cima alla stessa pagina.
-
-### Opzione B — sottocartella del repository già pubblicato
-
-1. Nel repo esistente: **Add file → Upload files**.
-2. Nel campo del percorso in alto, dopo il nome del repo, scrivere
-   `variante-joy/` — GitHub crea la cartella al volo.
-3. Trascinare il contenuto di questa cartella e fare **Commit changes**.
-4. Il sito resta quello di prima; questa variante si raggiunge aggiungendo
-   `/variante-joy/` all'indirizzo. I percorsi relativi funzionano identici.
-
-> Attenzione in Opzione B: `script.js` esiste anche nella radice del repo ed è lo
-> stesso file. Le due copie sono indipendenti, quindi una modifica va applicata a
-> entrambe, altrimenti le due varianti divergono.
-
-### Modifiche successive, sempre dal browser
-
-Aprire il file su GitHub → icona della matita → modificare → **Commit changes**.
-Per sostituire una foto: **Add file → Upload files** nella cartella `foto`,
-caricando un file con lo stesso nome; GitHub lo sovrascrive.
+**Crediti foto:** `citta-corato.jpg` è CC BY-SA 4.0 (FioreArchive) e l'attribuzione
+sulla foto va mantenuta; `citta-bari.jpg` è CC0 (Bernard Gagnon).
 
 ## Prima di mandare il link agli invitati
 
-- [x] Meta `og:` di `index.html` puntate a `https://francesco-valentina-wedding.github.io/`.
-      Se l'indirizzo cambia vanno aggiornate: gli scraper social non risolvono i
-      percorsi relativi.
-- [ ] Dati ancora finti da sostituire: IBAN, i due numeri di telefono
-      (`+39 333 000 000x`) e le due email `*.fake@email.it`.
-- [ ] Due risposte delle FAQ sono marcate `[DA CONFERMARE]` (bambini e
-      parcheggio; il parcheggio compare anche nella sezione Viaggio).
-- [ ] Verificare la stima "circa 25 minuti in auto" dalla chiesa al ricevimento.
+- [ ] IBAN ancora finto.
+- [ ] Verificare la stima "circa 25 minuti" dalla chiesa al ricevimento.
 
-## RSVP
+## Foglio Google: RSVP, scommesse, dediche
 
-Ogni risposta viene inviata in parallelo a due destinazioni: il foglio Google
-(tramite Apps Script, URL nell'`action` del form) e Formspree (`FORMSPREE_URL`
-in `script.js`). Il ringraziamento compare se almeno una delle due conferma;
-se falliscono entrambe il form resta compilato e compare un messaggio d'errore.
+Lo script Apps Script (codice in `google-apps-script.gs`) riceve tutto ciò che
+inviano i moduli della pagina e lo scrive nel foglio:
 
-Il codice dell'Apps Script è in `google-apps-script.gs`. Non lo usa il sito:
-è la copia di riferimento di quello pubblicato su Google. Dopo ogni modifica:
+- **RSVP** → scheda `RSVP`. Ogni risposta va anche a Formspree (`FORMSPREE_URL`
+  in `script.js`): il ringraziamento compare se almeno uno dei due conferma.
+- **Scommesse** → scheda `Scommesse` (votante anonimo, domanda, risposta).
+  `GET ?action=poll` restituisce i conteggi, contando solo l'ultimo voto di
+  ciascun invitato per domanda: sono le percentuali mostrate sulla pagina.
+- **Canzone e augurio** → scheda `Dediche`.
 
-1. Aprire il foglio Google delle risposte → **Estensioni → Apps Script**.
-2. Sostituire tutto il contenuto dell'editor con quello di `google-apps-script.gs`,
-   salvare.
+Le schede e le intestazioni si creano da sole. Dopo ogni modifica dello script:
+
+1. Aprire il foglio → **Estensioni → Apps Script**.
+2. Sostituire tutto il contenuto con quello di `google-apps-script.gs`, salvare.
 3. **Esegui il deployment → Gestisci deployment** → matita sul deployment
    esistente → Versione **Nuova versione** → **Esegui il deployment**.
-   Non creare un deployment nuovo: cambierebbe l'URL nell'`action` del form.
+   Non creare un deployment nuovo: cambierebbe l'URL usato dai moduli.
    "Chi può accedere" deve restare **Chiunque**.
 
-## Personalizzare
-
-Colori, larghezza del pannello e della colonna di testo stanno nel blocco
-`:root` all'inizio di `variante-joy.css` (`--ink`, `--paper`, `--clay`, `--sage`,
-`--aux-w`, `--col`).
-
-Per aggiungere una foto al pannello: un altro `<img class="aux-slide">` in
-`index.html` dentro `.aux-art`, e il suo numero d'ordine nel `data-art` della
-sezione da cui deve comparire. Il `data-tint` è il colore che quella foto presta
-allo sfondo delle fasce. Le istruzioni per esteso sono nel commento HTML sopra
-`.aux-art`.
+Dalla rete aziendale `script.google.com` è bloccato: le prove vanno fatte da
+telefono con i dati mobili.

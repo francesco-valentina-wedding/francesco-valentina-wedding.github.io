@@ -1,5 +1,5 @@
-/* Variante "fresca": Mediterranean palette (limestone white, Adriatic blue, olive,
-   lemon), postcard and polaroid photos, olive-sprig dividers.
+/* Wedding invite: Mediterranean palette (limestone white, Adriatic blue, olive,
+   lemon), polaroid photos, olive-sprig dividers.
    Mobile-first: base rules are the phone layout, media queries widen it. */
 
 :root {
@@ -28,6 +28,10 @@
 }
 
 * { box-sizing: border-box; }
+
+/* Author display rules (form { display: grid } etc.) would otherwise beat the
+   UA [hidden] rule and keep hidden forms and messages on screen. */
+[hidden] { display: none !important; }
 
 html {
   scroll-behavior: smooth;
@@ -61,8 +65,9 @@ strong { font-weight: 600; color: var(--sea); }
 
 .hand { font-family: var(--hand); font-weight: 500; line-height: 1.1; }
 
-/* Upright ampersand: the italic one is too ornate. */
-.amp { font-style: normal; color: var(--terra); }
+/* Calligraphic ampersand from Cormorant Garamond italic (only that glyph is
+   downloaded), lighter than the Fraunces one. */
+.amp { font-family: 'Cormorant Garamond', var(--serif); font-style: italic; font-weight: 500; color: var(--terra); }
 
 .skip {
   position: absolute;
@@ -120,7 +125,7 @@ strong { font-weight: 600; color: var(--sea); }
   z-index: 50;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: var(--bar-h);
   padding: 0 clamp(1rem, 3vw, 2rem);
   transition: background 0.3s, box-shadow 0.3s;
@@ -132,15 +137,6 @@ strong { font-weight: 600; color: var(--sea); }
   backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 var(--line);
 }
-
-.monogram {
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  color: var(--ink);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-}
-.monogram span { margin: 0 0.1em; color: var(--terra); }
 
 .topbar-actions { display: flex; align-items: center; gap: 0.6rem; }
 .topbar-rsvp { min-height: 44px; padding: 0 1.1rem; font-size: 0.82rem; }
@@ -256,40 +252,44 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 /* ---------- HERO ---------- */
 
-.hero { padding-top: var(--bar-h); }
+/* The Santuario at sunset across the full width, dissolving into the page so
+   the names read as written beneath it on the same sheet. */
+.hero-photo {
+  margin: 0;
+  height: clamp(300px, 56svh, 520px);
+}
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
 
-.hero-grid {
-  display: grid;
-  justify-items: center;
-  gap: 2.6rem;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.6rem 1.25rem 4.5rem;
+.hero-text {
+  position: relative;
+  max-width: 860px;
+  margin: -2rem auto 0;
+  padding: 0 1.25rem 4.5rem;
   text-align: center;
 }
-
-/* Postcard: uniform white border, square-ish corners, a gentle tilt. Shown only
-   on the two-column layout; on a phone the photo joins "Prima del sì". */
-.postcard-hero { display: none; }
-
-.hero-text { max-width: 560px; }
-.hero-text .ornament { margin-top: 1.5rem; margin-bottom: 1.4rem; }
-
+.hero-text .ornament { margin: 1.4rem auto 1.4rem; }
 
 .hero h1 {
-  font-size: clamp(2.7rem, 11.5vw, 5.4rem);
+  font-size: clamp(2.8rem, 11vw, 5.4rem);
   font-weight: 300;
-  line-height: 1.02;
+  line-height: 1.04;
   letter-spacing: -0.02em;
 }
-.hero h1 .amp { font-weight: 300; }
+.hero h1 .amp { font-size: 1.08em; padding: 0 0.04em; }
 
 .hero-invite {
   margin: 0 auto 1.6rem;
   max-width: 34ch;
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(1.1rem, 4.4vw, 1.35rem);
+  font-size: clamp(1.1rem, 4.4vw, 1.4rem);
   line-height: 1.45;
 }
 
@@ -339,16 +339,15 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
 
-.hero-note { margin: 1.4rem 0 0; font-size: 1.6rem; color: var(--olive); }
-
 /* Entrance on load: the hero is above the fold, no need to wait for scroll. */
-.js .postcard-hero, .js .hero-text > * { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.js .hero-text > :nth-child(2) { animation-delay: 0.08s; }
-.js .hero-text > :nth-child(3) { animation-delay: 0.16s; }
-.js .hero-text > :nth-child(4) { animation-delay: 0.24s; }
-.js .hero-text > :nth-child(n+5) { animation-delay: 0.32s; }
+.js .hero-photo img { animation: fade 1.4s ease-out both; }
+.js .hero-text > * { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: 0.2s; }
+.js .hero-text > :nth-child(2) { animation-delay: 0.28s; }
+.js .hero-text > :nth-child(3) { animation-delay: 0.36s; }
+.js .hero-text > :nth-child(n+4) { animation-delay: 0.44s; }
 
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes fade { from { opacity: 0; } }
 
 /* ---------- SECTIONS ---------- */
 
@@ -425,6 +424,7 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 }
 .polaroid.p2 { --r: 1.8deg; }
 .polaroid.p3 { --r: -1.2deg; }
+.polaroid.p4 { --r: 2.2deg; }
 .polaroid:hover { transform: rotate(0deg) scale(1.02); }
 
 /* A strip of washi tape holding each photo. */
@@ -440,10 +440,12 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 }
 .polaroid.p2::before { background: rgba(157, 176, 106, 0.45); transform: translateX(-50%) rotate(4deg); }
 .polaroid.p3::before { background: rgba(226, 168, 156, 0.5); }
+.polaroid.p4::before { background: rgba(170, 196, 204, 0.55); transform: translateX(-50%) rotate(-2deg); }
 
 .polaroid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.polaroid.p1 img { object-position: 50% 78%; }
-.polaroid.p2 img { object-position: 50% 42%; }
+.polaroid.p1 img { object-position: 50% 58%; }
+.polaroid.p2 img { object-position: 50% 78%; }
+.polaroid.p3 img { object-position: 50% 42%; }
 
 .polaroid figcaption,
 .polaroid-cap {
@@ -469,9 +471,13 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 .swipe-hint { margin: -0.4rem 0 0; text-align: center; font-size: 1.4rem; color: var(--muted); }
 
-.poll { max-width: 720px; margin-top: 3rem; }
-.poll h3 { margin-bottom: 0.6rem; font-size: clamp(1.5rem, 5vw, 1.9rem); }
+.poll, .dedica { max-width: 780px; }
+.dedica { margin-top: 1.6rem; }
+.dedica h3 { font-size: clamp(1.6rem, 5vw, 2.1rem); }
+.dedica form { margin-top: 1.2rem; }
+.dedica .thanks .pill { margin-top: 0.4rem; }
 
+.poll-q:first-child { border-top: 0; padding-top: 0.2rem; }
 .poll-q {
   display: flex;
   flex-wrap: wrap;
@@ -504,6 +510,15 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 .poll-result { min-height: 1.6em; margin: 0.6rem 0 0; font-size: 1.5rem; color: var(--sea); }
 
+/* What the other guests voted: shown under a question once you have voted. */
+.poll-bars { flex-basis: 100%; display: grid; gap: 0.35rem; width: 100%; text-align: left; }
+.bar { display: grid; grid-template-columns: 5.6rem 1fr 2.8rem; align-items: center; gap: 0.6rem; font-size: 0.85rem; }
+.bar-track { display: block; height: 8px; border-radius: 99px; background: var(--sand); overflow: hidden; }
+.bar-fill { display: block; height: 100%; width: var(--w); border-radius: 99px; background: var(--sea-2); transition: width 0.7s ease; }
+.bar.mine .bar-fill { background: var(--coral); }
+.bar-pct { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.poll-q .poll-total { margin: 0; font-size: 0.78rem; color: var(--muted); }
+
 /* Single column: questions and answers stacked and centred. */
 @media (max-width: 759px) {
   .poll, .poll-q p { text-align: center; }
@@ -526,7 +541,24 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 .event h3 { margin-bottom: 0.5rem; font-size: 1.85rem; }
 .event-place { margin: 0 0 0.6rem; font-weight: 500; }
 .event-place span { font-weight: 400; color: var(--muted); font-size: 0.92rem; }
-.event-note { color: var(--muted); font-size: 0.95rem; }
+.event-facts { margin: 0 0 0.9rem; padding: 0; list-style: none; }
+.event-facts li { position: relative; margin-bottom: 0.45rem; padding-left: 1.1rem; font-size: 0.94rem; color: var(--muted); }
+.event-facts li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+
+/* At a glance: the three numbers everyone asks for. */
+.facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; margin: -0.8rem auto 2.4rem; padding: 0; list-style: none; }
+.facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1.1rem 0.5rem 0.55rem;
+  background: var(--card);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  font-size: 0.92rem;
+}
+.fact-ico { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--sky); color: var(--sea); }
+.fact-ico svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .event-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
 
 .save-date { margin-top: 2.6rem; text-align: center; }
@@ -566,9 +598,46 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 }
 .info-link:hover { text-decoration: underline; }
 
+.city { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.city-img { position: relative; flex: none; margin: 0; aspect-ratio: 16 / 10; }
+.city-img img { width: 100%; height: 100%; object-fit: cover; }
+.credit {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.45rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(29, 42, 49, 0.45);
+  color: #fff;
+  font-size: 0.66rem;
+}
+.credit a { color: #fff; }
+.city-body { display: flex; flex: 1; flex-direction: column; padding: 1.4rem 1.5rem 1rem; }
+.city h3 { font-size: 1.7rem; }
+.city-tag { margin: 0 0 0.8rem; font-family: var(--hand); font-size: 1.45rem; line-height: 1.1; color: var(--terra); }
+.pros, .cons { margin: 0 0 0.5rem; padding: 0; list-style: none; }
+.pros li, .cons li { position: relative; margin-bottom: 0.45rem; padding-left: 1.6rem; font-size: 0.95rem; }
+.pros li::before, .cons li::before {
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.pros li::before { content: '+'; background: #e8edda; color: var(--olive); }
+.cons li::before { content: '\2013'; background: #f6e1d8; color: var(--terra); }
+.city .info-link { margin-top: auto; }
+
 /* ---------- METEO + DRESS CODE ---------- */
 
-.split { display: grid; gap: 1.4rem; align-items: start; }
+/* Cards side by side always share the same height. */
+.split { display: grid; gap: 1.4rem; align-items: stretch; }
 
 .weather-note { margin: 0; font-size: 0.93rem; color: var(--muted); }
 .weather-now { margin: 0 0 0.5rem; font-family: var(--serif); font-size: 1.8rem; }
@@ -585,25 +654,21 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 .weather-year { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); }
 .weather-temp { font-family: var(--serif); font-size: 1.3rem; color: var(--sea); white-space: nowrap; }
 
-.swatch-label { margin: 1.3rem 0 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.wx { display: inline-block; width: 24px; height: 24px; margin-right: 0.55rem; vertical-align: -6px; color: var(--sea-2); }
+.wx svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.wx-sun { color: #e0a32e; }
+.weather-avg { margin: 0 0 1rem; padding: 0.8rem 1rem; border-radius: 14px; background: var(--sky); font-size: 0.95rem; }
 
-.swatches { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-/* 7 swatches must fit one row on a 320-390px phone */
-.swatches li {
-  position: relative;
-  width: clamp(30px, 8.6vw, 40px);
-  height: clamp(30px, 8.6vw, 40px);
-  border-radius: 50%;
-  background: var(--c);
-  box-shadow: inset 0 0 0 1px rgba(29, 42, 49, 0.12);
-}
-.swatches-no li::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(135deg, transparent 46%, var(--terra) 47%, var(--terra) 53%, transparent 54%);
-}
+/* Equal-height pair: dress code content sits in the middle of its card, the
+   IBAN box at the bottom of the gift card, level with the contacts. */
+.dress-card { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.dress-card .sec-head-left { text-align: center; }
+.gift-card { display: flex; flex-direction: column; }
+.gift-card .iban-box { margin-top: auto; }
+
+.dress-ico { display: block; width: 56px; height: 56px; margin: 0.4rem 0 0.8rem; color: var(--sea-2); }
+.dress-ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.dress-lead { margin-bottom: 0.6rem; font-family: var(--serif); font-size: 1.4rem; line-height: 1.3; }
 
 /* ---------- FAQ ---------- */
 
@@ -631,6 +696,8 @@ body.menu-open .menu li { opacity: 1; transform: none; }
   -webkit-tap-highlight-color: transparent;
 }
 .qa summary::-webkit-details-marker { display: none; }
+.qa summary:focus-visible { outline: none; }
+.qa details:has(summary:focus-visible) { box-shadow: 0 0 0 2px var(--sea-2), var(--shadow); }
 
 .qa summary::after {
   content: '';
@@ -729,6 +796,30 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .thanks { padding: 1rem 0; text-align: center; }
+
+/* Outcome icons: the check draws itself; the warning just appears. */
+.status-ico { display: block; flex: none; width: 64px; height: 64px; }
+.status-ico svg { width: 100%; height: 100%; fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.status-ok { margin: 0 auto 0.6rem; }
+.status-ok svg { stroke: var(--olive); }
+.status-ok circle { stroke-dasharray: 145; stroke-dashoffset: 145; animation: draw 0.7s ease-out forwards; }
+.status-ok path { stroke-dasharray: 34; stroke-dashoffset: 34; animation: draw 0.45s 0.6s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.form-alert {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+  border: 1px solid #efc9bb;
+  border-radius: 16px;
+  background: #fdf3ef;
+  text-align: left;
+}
+.form-alert .status-ico { width: 40px; height: 40px; }
+.status-ko svg { stroke: var(--terra); }
+.form-alert p { margin: 0; font-size: 0.93rem; }
+.form-alert .alert-title { margin-bottom: 0.15rem; font-family: var(--hand); font-size: 1.7rem; line-height: 1.1; color: var(--terra); }
 .thanks .hand { margin: 0 0 0.4rem; font-size: 3rem; color: var(--terra); }
 
 /* ---------- GALLERIA ---------- */
@@ -775,56 +866,35 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
 }
 
 @media (min-width: 760px) {
-  .cards-2, .cards-3 { grid-template-columns: 1fr 1fr; }
-  .poll { margin-top: 4rem; }
+  .cards-2 { grid-template-columns: 1fr 1fr; }
 }
 
 @media (min-width: 900px) {
   .events { grid-template-columns: repeat(3, 1fr); }
   .split { grid-template-columns: 1fr 1fr; }
   .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .poll, .dedica { margin-left: auto; margin-right: auto; }
   .menu ul { grid-template-columns: 1fr 1fr; text-align: left; }
 }
 
 @media (min-width: 960px) {
   .polaroids {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.4rem, 3vw, 2.6rem);
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.4vw, 2.2rem);
     margin: 0 auto;
     padding: 1rem 0 0;
     overflow: visible;
-    max-width: 1000px;
+    max-width: 1120px;
   }
-  .polaroid.p2 { margin-top: 2.2rem; }
+  .polaroid.p2, .polaroid.p4 { margin-top: 2.2rem; }
+  .polaroid figcaption, .polaroid-cap { font-size: 1.3rem; }
   .swipe-hint { display: none; }
-  .mobile-only { display: none; }
-  .hero-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    gap: 4rem;
-    min-height: calc(100vh - var(--bar-h) - 56px);
-    padding: 1rem 2.5rem 4rem;
-    text-align: left;
-  }
-  .postcard-hero {
-    display: block;
-    order: 2;
-    justify-self: center;
-    width: min(100%, 400px);
-    margin: 0;
-    padding: 12px;
-    background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 22px 44px -24px rgba(29, 42, 49, 0.55), 0 1px 3px rgba(29, 42, 49, 0.1);
-    transform: rotate(1.5deg);
-  }
-  .postcard-hero img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 58%; }
-  .hero-text { max-width: 600px; }
-  .hero-invite { margin-left: 0; }
-  .hero-date, .hero-cta { justify-content: flex-start; }
-  .countdown { margin-left: 0; }
-  .hero-text .ornament { margin-left: 0; background-position: left center; }
+  /* wide screens crop a landscape photo into a strip: taller, framed higher
+     so the sunset sky stays in */
+  .hero-photo { height: clamp(460px, 80vh, 800px); }
+  .hero-photo img { object-position: 50% 36%; }
+  .hero-text { margin-top: -3.5rem; }
 }
 
 @media (max-width: 359px) {
