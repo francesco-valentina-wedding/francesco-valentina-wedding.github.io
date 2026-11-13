@@ -280,14 +280,19 @@ body.drawer-open .drawer li { opacity: 1; transform: translateX(0); }
   letter-spacing: 0.01em;
 }
 
-.aux-greeting {
-  margin: 1rem 0 0;
-  max-width: 32ch;
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.7;
-  opacity: 0.78;
+.aux-slide-couple { object-position: center 60%; }
+
+/* Date under the names, set off by a short rule so the two never touch. */
+.aux-date {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 1.3rem 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  opacity: 0.85;
 }
+.aux-date::before { content: ''; width: 2.4rem; border-top: 1px solid currentColor; opacity: 0.7; }
 
 .main { flex: 1 1 auto; min-width: 0; }
 
@@ -378,13 +383,25 @@ section[id] { scroll-margin-top: var(--nav-h); }
   text-align: center;
 }
 
+/* Welcome rhythm: invite, sub-line, rule, date. Gaps grow toward the date so the
+   invitation reads as one block and the date as the next. */
 .page-invite {
-  margin: 0 0 1.4rem;
+  margin: 0;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
-  line-height: 1.4;
+  font-size: clamp(1.45rem, 4.6vw, 1.9rem);
+  line-height: 1.3;
   color: var(--clay);
+}
+
+.page-invite-sub { margin: 0.9rem 0 0; max-width: 30ch; font-size: 0.98rem; opacity: 0.8; }
+
+.page-divider {
+  display: block;
+  width: 56px;
+  margin: 2rem 0;
+  border-top: 1px solid var(--clay);
+  opacity: 0.55;
 }
 
 .page-date {
@@ -870,8 +887,8 @@ footer p { margin: 0; }
 
   /* Senza il pannello sticky, ogni sezione apre con una foto a piena larghezza,
      a fare da separatore netto con la precedente. La prima foto (gli sposi)
-     resta riservata alla copertina: qui, in attesa di scatti dedicati, si
-     duplicano le altre tre. Il trucco left/margin-left sborda oltre il
+     resta riservata alla copertina; le altre si ripetono al massimo due volte,
+     con tagli diversi. Il trucco left/margin-left sborda oltre il
      padding della sezione fino ai bordi del viewport, indipendentemente da
      quanto vale il padding stesso. */
   #programma::before,
@@ -897,16 +914,17 @@ footer p { margin: 0; }
     background-size: cover;
     background-position: center;
   }
-  #programma::before { background-image: url('foto/3.festa-luci.jpg'); }
+  #programma::before { background-image: url('foto/1.monastero_santa_colonna.jpg'); }
   #viaggio::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
   #alloggio::before { background-image: url('foto/4.corte-bracco.jpg'); }
-  #meteo::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
-  #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); }
-  #faq::before { background-image: url('foto/4.corte-bracco.jpg'); }
-  #regalo::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
-  #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); }
+  /* the sunrise sky over the Santuario, for the weather */
+  #meteo::before { background-image: url('foto/1.monastero_santa_colonna.jpg'); background-position: center 5%; }
+  #dress-code::before { background-image: url('foto/noi-matrimonio-amici.jpg'); background-position: center 32%; }
+  #faq::before { background-image: url('foto/3.festa-luci.jpg'); background-position: center 25%; }
+  #regalo::before { background-image: url('foto/2.trani-cattedrale.jpg'); background-position: center 25%; }
+  #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); background-position: center 75%; }
   #rsvp::before { background-image: url('foto/3.festa-luci.jpg'); }
-  #galleria::before { background-image: url('foto/4.corte-bracco.jpg'); }
+  #galleria::before { background-image: url('foto/noi-edimburgo.jpg'); background-position: center 72%; }
 
 }
 
