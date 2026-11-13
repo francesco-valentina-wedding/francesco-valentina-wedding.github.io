@@ -1,4 +1,4 @@
-// Variante fresca: top bar, full-screen menu, footer lights, guest poll.
+// Variante fresca: top bar, full-screen menu, guest poll.
 // Countdown, weather, RSVP and copy buttons live in the shared ../script.js.
 
 (function () {
@@ -37,12 +37,6 @@
   // scroll to the section would not happen.
   menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => close(false)));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) close(true); });
-})();
-
-(function () {
-  const lights = document.querySelector('.hero .luminarie');
-  const footer = document.querySelector('.footer');
-  if (lights && footer) footer.prepend(lights.cloneNode(true));
 })();
 
 // Playful poll: votes stay on the guest's device, nothing is sent anywhere.
