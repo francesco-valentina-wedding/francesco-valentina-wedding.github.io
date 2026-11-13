@@ -280,8 +280,6 @@ body.drawer-open .drawer li { opacity: 1; transform: translateX(0); }
   letter-spacing: 0.01em;
 }
 
-.aux-slide-couple { object-position: center 60%; }
-
 /* Date under the names, set off by a short rule so the two never touch. */
 .aux-date {
   display: flex;
@@ -383,6 +381,30 @@ section[id] { scroll-margin-top: var(--nav-h); }
   text-align: center;
 }
 
+/* Our three photos fanned like prints on the card: the centre one in front and
+   level, the side ones tucked behind and tilted outwards. */
+.trio {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: min(100%, 350px);
+  margin: 0 0 2.2rem;
+  padding: 0.6rem 0 0.8rem;
+}
+
+.trio img {
+  width: 37%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 5px solid #fff;
+  border-radius: 2px;
+  box-shadow: 0 12px 26px -14px rgba(58, 50, 38, 0.55), 0 1px 3px rgba(58, 50, 38, 0.12);
+}
+
+.trio-l { transform: translateY(14px) rotate(-7deg); margin-right: -7%; object-position: 50% 75%; }
+.trio-c { position: relative; z-index: 1; width: 40%; object-position: 50% 58%; }
+.trio-r { transform: translateY(14px) rotate(7deg); margin-left: -7%; object-position: 50% 40%; }
+
 /* Welcome rhythm: invite, sub-line, rule, date. Gaps grow toward the date so the
    invitation reads as one block and the date as the next. */
 .page-invite {
@@ -399,7 +421,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
 .page-divider {
   display: block;
   width: 56px;
-  margin: 2rem 0;
+  margin: 1.6rem 0;
   border-top: 1px solid var(--clay);
   opacity: 0.55;
 }
@@ -424,6 +446,8 @@ section[id] { scroll-margin-top: var(--nav-h); }
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.5rem;
 }
+
+.page-welcome #countdown { margin: 1.9rem 0; }
 
 #countdown {
   display: flex;
@@ -852,7 +876,7 @@ footer p { margin: 0; }
        aggirando l'overflow: hidden */
     position: relative;
     height: auto;
-    /* la prima foto è quella degli sposi: a schermo intero invece che a 88svh */
+    /* la copertina è a schermo intero invece che a 88svh */
     min-height: 100svh;
     padding: 5rem 1.5rem 3rem;
     /* basso a sinistra come nel pannello desktop: justify-content/align-items/
@@ -886,9 +910,8 @@ footer p { margin: 0; }
   .page-date-sm { margin-top: -0.6rem; }
 
   /* Senza il pannello sticky, ogni sezione apre con una foto a piena larghezza,
-     a fare da separatore netto con la precedente. La prima foto (gli sposi)
-     resta riservata alla copertina; le altre si ripetono al massimo due volte,
-     con tagli diversi. Il trucco left/margin-left sborda oltre il
+     a fare da separatore netto con la precedente. La prima foto resta
+     riservata alla copertina; le altre si ripetono con tagli diversi. Il trucco left/margin-left sborda oltre il
      padding della sezione fino ai bordi del viewport, indipendentemente da
      quanto vale il padding stesso. */
   #programma::before,
@@ -919,12 +942,12 @@ footer p { margin: 0; }
   #alloggio::before { background-image: url('foto/4.corte-bracco.jpg'); }
   /* the sunrise sky over the Santuario, for the weather */
   #meteo::before { background-image: url('foto/1.monastero_santa_colonna.jpg'); background-position: center 5%; }
-  #dress-code::before { background-image: url('foto/noi-matrimonio-amici.jpg'); background-position: center 32%; }
-  #faq::before { background-image: url('foto/3.festa-luci.jpg'); background-position: center 25%; }
+  #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); background-position: center 25%; }
+  #faq::before { background-image: url('foto/4.corte-bracco.jpg'); background-position: center 30%; }
   #regalo::before { background-image: url('foto/2.trani-cattedrale.jpg'); background-position: center 25%; }
   #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); background-position: center 75%; }
   #rsvp::before { background-image: url('foto/3.festa-luci.jpg'); }
-  #galleria::before { background-image: url('foto/noi-edimburgo.jpg'); background-position: center 72%; }
+  #galleria::before { background-image: url('foto/1.monastero_santa_colonna.jpg'); background-position: center 70%; }
 
 }
 

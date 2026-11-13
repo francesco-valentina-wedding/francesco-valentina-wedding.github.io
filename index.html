@@ -129,13 +129,10 @@
          data-tint è il colore che la foto presta allo sfondo delle fasce: una
          tonalità dominante dell'immagine, schiarita per restare nella palette. -->
     <div class="aux-art">
-      <img class="aux-slide aux-slide-couple" src="foto/noi-dune.jpg" data-tint="#f6e8d8" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto">
       <img class="aux-slide" src="foto/1.monastero_santa_colonna.jpg" data-tint="#f5e9d3" alt="Il Santuario Santa Maria di Colonna sul mare, all'alba">
       <img class="aux-slide" src="foto/2.trani-cattedrale.jpg" data-tint="#f2e8de" alt="La cattedrale di Trani al tramonto sul porto">
-      <img class="aux-slide" src="foto/4.corte-bracco.jpg" data-tint="#e9edde" alt="La corte in pietra di Corte Bracco dei Germani">
-      <img class="aux-slide" src="foto/noi-matrimonio-amici.jpg" data-tint="#eef0e2" alt="Francesco e Valentina eleganti davanti a una chiesa addobbata di fiori bianchi" style="object-position: center 35%">
       <img class="aux-slide" src="foto/3.festa-luci.jpg" data-tint="#f2e6d2" alt="Tavolo imbandito all'aperto sotto le luci">
-      <img class="aux-slide" src="foto/noi-edimburgo.jpg" data-tint="#e8eef2" alt="Selfie di Francesco e Valentina a Edimburgo" style="object-position: center 70%">
+      <img class="aux-slide" src="foto/4.corte-bracco.jpg" data-tint="#e9edde" alt="La corte in pietra di Corte Bracco dei Germani">
     </div>
 
     <div class="aux-title">
@@ -150,6 +147,12 @@
       <svg class="corner corner-tr" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
       <svg class="corner corner-bl" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
 
+      <!-- Our three photos, fanned like prints laid on the invitation card. -->
+      <div class="trio" aria-label="Le nostre foto">
+        <img src="foto/noi-edimburgo.jpg" alt="Selfie di Francesco e Valentina a Edimburgo" class="trio-l" loading="lazy">
+        <img src="foto/noi-dune.jpg" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto" class="trio-c">
+        <img src="foto/noi-matrimonio-amici.jpg" alt="Francesco e Valentina eleganti davanti a una chiesa addobbata di fiori bianchi" class="trio-r" loading="lazy">
+      </div>
       <p class="page-invite">Con grande gioia<br>vi invitiamo al nostro matrimonio</p>
       <p class="page-invite-sub">e a festeggiare insieme a noi, tra gli ulivi e il sole di Puglia</p>
       <span class="page-divider" aria-hidden="true"></span>
@@ -165,7 +168,7 @@
       </a>
     </section>
 
-    <section id="programma" data-art="2" class="page fade-in">
+    <section id="programma" class="page fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.6 2.1"/>
       </svg>
@@ -215,7 +218,7 @@
       </ol>
     </section>
 
-    <section id="viaggio" data-art="3" class="page alt fade-in">
+    <section id="viaggio" data-art="2" class="page alt fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/>
       </svg>
@@ -283,7 +286,7 @@
       </div>
     </section>
 
-    <section id="alloggio" data-art="4" class="page fade-in">
+    <section id="alloggio" class="page fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/>
       </svg>
@@ -355,7 +358,7 @@
       </div>
     </section>
 
-    <section id="dress-code" data-art="5" class="page fade-in">
+    <section id="dress-code" data-art="3" class="page fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <path d="M12 4.5a1.8 1.8 0 0 1 1.8 1.8c0 1.4-1.8 1.5-1.8 3"/>
         <path d="M12 9.3L3.5 15.6a1 1 0 0 0 .6 1.8h15.8a1 1 0 0 0 .6-1.8z"/>
@@ -449,7 +452,7 @@
       </div>
     </section>
 
-    <section id="rsvp" data-art="6" class="page fade-in">
+    <section id="rsvp" class="page fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <path d="M5.5 4.5h13v15h-13z"/><path d="M8.5 4.5V3h7v1.5"/><path d="M9 12.4l2.1 2.1 4-4"/>
       </svg>
@@ -477,7 +480,7 @@
       <p id="rsvp-thanks" hidden>Grazie.</p>
     </section>
 
-    <section id="galleria" data-art="7" class="page alt fade-in">
+    <section id="galleria" class="page alt fade-in">
       <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5h6V7"/><circle cx="12" cy="13.5" r="3.6"/>
       </svg>
