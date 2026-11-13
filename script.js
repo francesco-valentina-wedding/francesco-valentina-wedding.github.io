@@ -157,6 +157,40 @@ if (form) {
   });
 }
 
+// The Clipboard API needs a secure context (https/localhost): fall back to a
+// temporary selection elsewhere, e.g. when the page is opened from disk.
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    if (!ok) throw new Error('copy');
+  }
+}
+
+document.querySelectorAll('[data-copy]').forEach((btn) => {
+  const label = btn.textContent;
+  let timer;
+  btn.addEventListener('click', async () => {
+    try {
+      await copyText(btn.dataset.copy);
+      btn.textContent = 'Copiato ✓';
+    } catch {
+      btn.textContent = 'Copia non riuscita';
+    }
+    clearTimeout(timer);
+    timer = setTimeout(() => { btn.textContent = label; }, 2200);
+  });
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) entry.target.classList.add('visible');

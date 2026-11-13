@@ -378,6 +378,15 @@ section[id] { scroll-margin-top: var(--nav-h); }
   text-align: center;
 }
 
+.page-invite {
+  margin: 0 0 1.4rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--clay);
+}
+
 .page-date {
   margin: 0;
   font-family: 'Cormorant Garamond', serif;
@@ -642,6 +651,26 @@ section[id] { scroll-margin-top: var(--nav-h); }
   color: var(--clay);
 }
 
+.copy-btn {
+  justify-self: center;
+  min-height: 44px;
+  margin-top: 1rem;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: none;
+  color: var(--clay);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.copy-btn:hover { background: var(--clay); border-color: var(--clay); color: var(--paper); }
+
 .weather-now { margin: 0 0 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
 .weather-note { margin: 0; font-size: 0.9rem; opacity: 0.75; }
 
@@ -825,6 +854,9 @@ footer p { margin: 0; }
   #benvenuto { background: #f4e6d8; }
 
   footer { padding: 3rem 1.5rem 2.5rem; }
+
+  /* On a phone the guest is already on the device the QR would open. */
+  .qr-code, .qr-note { display: none; }
 
   /* Titolo di sezione: grande e in grassetto, così lo stacco fra una sezione
      e l'altra si legge a colpo d'occhio anche senza foto. Centratura già

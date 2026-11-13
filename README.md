@@ -12,6 +12,9 @@ variante-joy.css                        stile
 variante-joy.js                         menu a pannello + foto che si alternano
 script.js                               countdown, meteo, RSVP, animazioni (condiviso con l'altra variante)
 google-apps-script.gs                   copia dello script Google che scrive le risposte RSVP nel foglio
+matrimonio.ics                          evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
+variante-fresca/                        variante alternativa in valutazione (riusa script.js, foto/ e matrimonio.ics)
+foto/noi-*.jpg                          foto della coppia, usate dalla variante fresca
 foto/1.monastero_santa_colonna.jpg      foto del pannello, in ordine
 foto/2.trani-cattedrale.jpg
 foto/3.festa-luci.jpg
@@ -72,9 +75,6 @@ caricando un file con lo stesso nome; GitHub lo sovrascrive.
 - [x] Meta `og:` di `index.html` puntate a `https://francesco-valentina-wedding.github.io/`.
       Se l'indirizzo cambia vanno aggiornate: gli scraper social non risolvono i
       percorsi relativi.
-- [ ] `foto/1.monastero_santa_colonna.jpg` è 274×184 px: a tutta altezza viene
-      ingrandita 3–4× e si vede sfocata. Serve una versione da almeno 1200 px sul
-      lato lungo.
 - [ ] Dati ancora finti da sostituire: IBAN, i due numeri di telefono
       (`+39 333 000 000x`) e le due email `*.fake@email.it`.
 - [ ] Due risposte delle FAQ sono marcate `[DA CONFERMARE]` (bambini e
