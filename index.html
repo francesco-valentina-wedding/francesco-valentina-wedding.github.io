@@ -24,7 +24,7 @@
 <script>document.documentElement.className = 'js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="variante-joy.css?v=6">
+<link rel="stylesheet" href="variante-joy.css?v=7">
 </head>
 <body>
 
@@ -129,7 +129,7 @@
          data-tint è il colore che la foto presta allo sfondo delle fasce: una
          tonalità dominante dell'immagine, schiarita per restare nella palette. -->
     <div class="aux-art">
-      <img class="aux-slide" src="foto/1.monastero_santa_colonna.jpg" data-tint="#f5e9d3" alt="Il Santuario Santa Maria di Colonna sul mare, all'alba">
+      <img class="aux-slide aux-slide-monastero" src="foto/1.monastero_santa_colonna.jpg" data-tint="#f5e9d3" alt="Il Santuario Santa Maria di Colonna sul mare, all'alba">
       <img class="aux-slide" src="foto/2.trani-cattedrale.jpg" data-tint="#f2e8de" alt="La cattedrale di Trani al tramonto sul porto">
       <img class="aux-slide" src="foto/3.festa-luci.jpg" data-tint="#f2e6d2" alt="Tavolo imbandito all'aperto sotto le luci">
       <img class="aux-slide" src="foto/4.corte-bracco.jpg" data-tint="#e9edde" alt="La corte in pietra di Corte Bracco dei Germani">
@@ -147,12 +147,23 @@
       <svg class="corner corner-tr" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
       <svg class="corner corner-bl" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
 
-      <!-- Our three photos as postcards laid side by side on the card. -->
-      <div class="postcards" aria-label="Le nostre foto">
-        <img src="foto/noi-edimburgo.jpg" alt="Selfie di Francesco e Valentina a Edimburgo" class="pc-l" loading="lazy">
-        <img src="foto/noi-dune.jpg" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto" class="pc-c">
-        <img src="foto/noi-matrimonio-amici.jpg" alt="Francesco e Valentina eleganti davanti a una chiesa addobbata di fiori bianchi" class="pc-r" loading="lazy">
+      <!-- Our three photos as polaroids, same sequence as the fresca variant:
+           side by side on desktop, a swipeable strip on a phone. -->
+      <div class="polaroids" tabindex="0" aria-label="Le nostre foto: scorrete di lato">
+        <figure class="polaroid p1">
+          <img src="foto/noi-dune.jpg" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto">
+          <figcaption>In cima alla duna, a caccia di tramonti</figcaption>
+        </figure>
+        <figure class="polaroid p2">
+          <img src="foto/noi-edimburgo.jpg" alt="Selfie di Francesco e Valentina a Edimburgo" loading="lazy">
+          <figcaption>Edimburgo: pietra antica e case color caramella</figcaption>
+        </figure>
+        <figure class="polaroid p3">
+          <img src="foto/noi-matrimonio-amici.jpg" alt="Francesco e Valentina eleganti davanti a una chiesa addobbata di fiori bianchi" loading="lazy">
+          <figcaption>Prove generali (al matrimonio degli altri)</figcaption>
+        </figure>
       </div>
+      <p class="swipe-hint" aria-hidden="true">scorrete &rarr;</p>
       <p class="page-invite">Con grande gioia<br>vi invitiamo al nostro matrimonio</p>
       <span class="page-divider" aria-hidden="true"></span>
       <p class="page-date">Sabato 22 Maggio 2027</p>
@@ -499,7 +510,7 @@
   </main>
 </div>
 
-<script src="script.js?v=6"></script>
-<script src="variante-joy.js?v=6"></script>
+<script src="script.js?v=7"></script>
+<script src="variante-joy.js?v=7"></script>
 </body>
 </html>

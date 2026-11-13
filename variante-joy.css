@@ -272,6 +272,10 @@ body.drawer-open .drawer li { opacity: 1; transform: translateX(0); }
 .no-js .aux-slide ~ .aux-slide { display: none; }
 
 /* Come in Joy, i nomi sono allineati in basso a sinistra */
+/* Landscape photo in a portrait panel: keep the church front and bell tower
+   (right of centre) in frame instead of the plain square. */
+.aux-slide-monastero { object-position: 64% 50%; }
+
 .aux-title { flex: 0 0 auto; position: relative; z-index: 1; }
 
 .aux-title h1 {
@@ -381,29 +385,92 @@ section[id] { scroll-margin-top: var(--nav-h); }
   text-align: center;
 }
 
-/* Our three photos as postcards side by side: same size, uniform white border,
-   level, with only the shadow lifting them off the card. */
-.postcards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(0.5rem, 2vw, 0.9rem);
-  width: min(100%, 380px);
-  margin: 0 0 2.4rem;
+/* Our three photos as polaroids, the same sequence as the fresca variant.
+   Phone: a swipeable strip bleeding to the screen edges. Desktop: a row. */
+.polaroids {
+  display: flex;
+  gap: 1.1rem;
+  justify-self: stretch;
+  /* bleed past the section padding to the viewport edges */
+  margin: 0 calc(50% - 50vw) 0.6rem;
+  padding: 1.2rem max(1.25rem, calc(50vw - 50%)) 1.4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  text-align: center;
 }
+.polaroids::-webkit-scrollbar { display: none; }
 
-.postcards img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  padding: 5px;
+.polaroid {
+  --r: -2.5deg;
+  position: relative;
+  flex: 0 0 64%;
+  margin: 0;
+  padding: 10px 10px 0;
   background: #fff;
-  border-radius: 2px;
-  box-shadow: 0 12px 24px -14px rgba(58, 50, 38, 0.5), 0 1px 3px rgba(58, 50, 38, 0.12);
+  box-shadow: 0 14px 26px -16px rgba(58, 50, 38, 0.5), 0 1px 3px rgba(58, 50, 38, 0.1);
+  transform: rotate(var(--r));
+  scroll-snap-align: center;
+}
+.polaroid.p2 { --r: 1.8deg; }
+.polaroid.p3 { --r: -1.2deg; }
+
+/* Strip of tape holding each print. */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 70px;
+  height: 20px;
+  background: rgba(226, 209, 178, 0.75);
+  transform: translateX(-50%) rotate(-3deg);
+}
+.polaroid.p2::before { background: rgba(157, 176, 106, 0.42); transform: translateX(-50%) rotate(4deg); }
+.polaroid.p3::before { background: rgba(214, 168, 150, 0.5); }
+
+.polaroid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.polaroid.p1 img { object-position: 50% 58%; }
+.polaroid.p2 img { object-position: 50% 75%; }
+.polaroid.p3 img { object-position: 50% 40%; }
+
+.polaroid figcaption {
+  padding: 0.6rem 0.2rem 0.9rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
-.pc-l { object-position: 50% 75%; }
-.pc-c { object-position: 50% 58%; }
-.pc-r { object-position: 50% 40%; }
+.swipe-hint {
+  margin: 0 0 2.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+@media (min-width: 560px) {
+  .polaroid { flex-basis: 44%; }
+}
+
+/* Two-column layout: the three prints side by side, no scrolling. */
+@media (min-width: 901px) {
+  .polaroids {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    width: min(100%, 520px);
+    justify-self: center;
+    margin: 0 0 2.4rem;
+    padding: 0.8rem 0 0;
+    overflow: visible;
+  }
+  .polaroid.p2 { margin-top: 1.4rem; }
+  .polaroid figcaption { font-size: 0.95rem; }
+  .swipe-hint { display: none; }
+}
 
 /* Welcome rhythm: invite, rule, date. Gaps grow toward the date so the
    invitation reads as one block and the date as the next. */
