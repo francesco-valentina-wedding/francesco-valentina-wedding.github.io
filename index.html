@@ -7,15 +7,15 @@
 <meta name="description" content="Francesco e Valentina si sposano il 22 maggio 2027 in Puglia. Dettagli su cerimonia, ricevimento, viaggio, alloggio e conferma di partecipazione.">
 <meta name="theme-color" content="#3a3226">
 
-<!-- Sostituire SITE_URL con il dominio pubblicato: gli scraper social non
-     risolvono i percorsi relativi, og:url e og:image devono essere assoluti. -->
+<!-- og:url e og:image devono essere assoluti: gli scraper social non risolvono
+     i percorsi relativi. -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Francesco &amp; Valentina">
 <meta property="og:title" content="Francesco &amp; Valentina — 22 maggio 2027">
 <meta property="og:description" content="Ci sposiamo in Puglia, tra gli ulivi e il sole. Qui trovate tutti i dettagli e la conferma di partecipazione.">
-<meta property="og:url" content="SITE_URL/">
-<meta property="og:image" content="SITE_URL/foto/og-image.jpg">
+<meta property="og:url" content="https://francesco-valentina-wedding.github.io/">
+<meta property="og:image" content="https://francesco-valentina-wedding.github.io/foto/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="La cattedrale di Trani sul porto, al tramonto">
@@ -344,7 +344,7 @@
       </svg>
       <p class="page-title">Meteo</p>
       <div id="weather">
-        <p class="page-lead">Caricamento previsioni&hellip;</p>
+        <p class="page-lead">Caricamento meteo&hellip;</p>
       </div>
     </section>
 
@@ -457,10 +457,14 @@
           <option value="si">S&igrave;</option>
           <option value="no">No</option>
         </select>
-        <input type="number" name="accompagnatori" placeholder="Accompagnatori" min="0">
+        <input type="number" name="accompagnatori" placeholder="Accompagnatori" min="0" inputmode="numeric">
+        <input type="text" name="nomi_accompagnatori" placeholder="Nomi e cognomi degli accompagnatori" hidden disabled>
         <textarea name="note" placeholder="Intolleranze alimentari / note"></textarea>
         <p class="field-hint">Le intolleranze segnalate verranno comunicate alla sala per l&rsquo;organizzazione del menu.</p>
+        <!-- Honeypot: invisible to people, bots fill it. Formspree drops _gotcha submissions natively. -->
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit">Invia</button>
+        <p id="rsvp-error" class="form-error" role="alert" hidden>Invio non riuscito. Controllate la connessione e riprovate.</p>
       </form>
       <p id="rsvp-thanks" hidden>Grazie.</p>
     </section>

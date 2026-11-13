@@ -10,7 +10,8 @@ e funziona.
 index.html                              la pagina
 variante-joy.css                        stile
 variante-joy.js                         menu a pannello + foto che si alternano
-script.js                               countdown, RSVP, animazioni (condiviso con l'altra variante)
+script.js                               countdown, meteo, RSVP, animazioni (condiviso con l'altra variante)
+google-apps-script.gs                   copia dello script Google che scrive le risposte RSVP nel foglio
 foto/1.monastero_santa_colonna.jpg      foto del pannello, in ordine
 foto/2.trani-cattedrale.jpg
 foto/3.festa-luci.jpg
@@ -21,6 +22,13 @@ foto/og-image.jpg                       anteprima per WhatsApp / Facebook (1200�
 Tutti i percorsi sono relativi: la cartella si può spostare o rinominare senza
 toccare il codice. Font, mappe, Booking, Google Calendar, Google Photos e il
 generatore di QR sono remoti e non richiedono file locali.
+
+## Indirizzo pubblicato
+
+`https://francesco-valentina-wedding.github.io/` — repository
+`francesco-valentina-wedding.github.io` nell'organizzazione GitHub
+`francesco-valentina-wedding`, Pages servito dal branch `main` (root).
+Lo sviluppo avviene su `develop`, il merge su `main` pubblica.
 
 ## Pubblicare su GitHub dal browser (senza clonare)
 
@@ -61,9 +69,9 @@ caricando un file con lo stesso nome; GitHub lo sovrascrive.
 
 ## Prima di mandare il link agli invitati
 
-- [ ] Sostituire `SITE_URL` nelle meta `og:` di `index.html` con il dominio reale
-      (per esempio `https://utente.github.io/invito-matrimonio-joy`): gli scraper
-      social non risolvono i percorsi relativi, l'anteprima serve assoluta.
+- [x] Meta `og:` di `index.html` puntate a `https://francesco-valentina-wedding.github.io/`.
+      Se l'indirizzo cambia vanno aggiornate: gli scraper social non risolvono i
+      percorsi relativi.
 - [ ] `foto/1.monastero_santa_colonna.jpg` è 274×184 px: a tutta altezza viene
       ingrandita 3–4× e si vede sfocata. Serve una versione da almeno 1200 px sul
       lato lungo.
@@ -72,9 +80,24 @@ caricando un file con lo stesso nome; GitHub lo sovrascrive.
 - [ ] Due risposte delle FAQ sono marcate `[DA CONFERMARE]` (bambini e
       parcheggio; il parcheggio compare anche nella sezione Viaggio).
 - [ ] Verificare la stima "circa 25 minuti in auto" dalla chiesa al ricevimento.
-- [ ] Il form RSVP non invia nulla: `script.js` mostra solo il messaggio di
-      conferma. Per ricevere davvero le risposte serve un servizio esterno
-      (Formspree, Google Form, Netlify Forms) collegato all'`action` del form.
+
+## RSVP
+
+Ogni risposta viene inviata in parallelo a due destinazioni: il foglio Google
+(tramite Apps Script, URL nell'`action` del form) e Formspree (`FORMSPREE_URL`
+in `script.js`). Il ringraziamento compare se almeno una delle due conferma;
+se falliscono entrambe il form resta compilato e compare un messaggio d'errore.
+
+Il codice dell'Apps Script è in `google-apps-script.gs`. Non lo usa il sito:
+è la copia di riferimento di quello pubblicato su Google. Dopo ogni modifica:
+
+1. Aprire il foglio Google delle risposte → **Estensioni → Apps Script**.
+2. Sostituire tutto il contenuto dell'editor con quello di `google-apps-script.gs`,
+   salvare.
+3. **Esegui il deployment → Gestisci deployment** → matita sul deployment
+   esistente → Versione **Nuova versione** → **Esegui il deployment**.
+   Non creare un deployment nuovo: cambierebbe l'URL nell'`action` del form.
+   "Chi può accedere" deve restare **Chiunque**.
 
 ## Personalizzare
 
