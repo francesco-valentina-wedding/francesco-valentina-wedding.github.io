@@ -13,7 +13,7 @@
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Francesco &amp; Valentina">
 <meta property="og:title" content="Francesco &amp; Valentina — 22 maggio 2027">
-<meta property="og:description" content="Siete invitati al nostro matrimonio, in Puglia tra gli ulivi e il sole. Qui trovate tutti i dettagli e la conferma di partecipazione.">
+<meta property="og:description" content="Siete invitati al nostro matrimonio, il 22 maggio 2027 in Puglia. Qui trovate tutti i dettagli e la conferma di partecipazione.">
 <meta property="og:url" content="https://francesco-valentina-wedding.github.io/">
 <meta property="og:image" content="https://francesco-valentina-wedding.github.io/foto/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:opsz,wght@9..40,300..600&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="fresca.css">
+<link rel="stylesheet" href="fresca.css?v=6">
 </head>
 <body>
 
@@ -64,29 +64,16 @@
   <!-- ============ INVITO ============ -->
   <section id="benvenuto" class="hero">
     <div class="hero-grid">
-      <figure class="hero-photo polaroid polaroid-hero">
+      <!-- Postcard: uniform white border, no caption. Desktop only: on a phone the
+           photo joins the others in "Prima del sì". -->
+      <figure class="postcard postcard-hero">
         <img src="../foto/noi-dune.jpg" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto" fetchpriority="high">
-        <figcaption>Noi due, in attesa del 22 maggio</figcaption>
-        <!-- Wax seal with our initials, as on a paper invitation envelope. -->
-        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
-          <defs>
-            <radialGradient id="wax" cx="38%" cy="32%" r="75%">
-              <stop offset="0" stop-color="#b8473b"/><stop offset="0.55" stop-color="#8f2d27"/><stop offset="1" stop-color="#6b1f1b"/>
-            </radialGradient>
-          </defs>
-          <path d="M97.2 50.0 L98.3 54.2 L97.2 58.3 L95.2 62.1 L93.7 65.9 L92.3 69.7 L90.1 73.1 L86.6 75.6 L82.9 77.6 L80.5 80.5 L79.1 84.7 L77.6 89.3 L74.6 92.6 L70.3 93.6 L65.9 93.6 L61.8 94.0 L57.9 95.0 L54.0 95.4 L50.0 94.6 L46.2 93.3 L42.4 93.2 L38.1 94.6 L33.3 95.8 L29.1 94.9 L26.0 91.5 L23.8 87.4 L21.4 84.1 L18.4 81.6 L15.4 79.1 L13.3 75.7 L11.7 72.1 L9.4 68.9 L6.0 66.0 L2.6 62.7 L1.3 58.6 L2.7 54.1 L5.2 50.0 L6.6 46.2 L6.6 42.3 L6.3 38.3 L7.2 34.4 L9.0 30.9 L10.4 27.1 L11.2 22.8 L12.5 18.5 L15.4 15.4 L20.0 14.2 L24.8 14.0 L28.6 12.9 L31.5 10.2 L34.4 7.1 L38.0 5.1 L42.0 4.4 L46.0 3.8 L50.0 2.6 L54.2 1.6 L58.4 2.6 L61.9 5.7 L64.8 9.3 L68.0 11.5 L72.0 11.9 L76.6 12.1 L80.5 13.6 L83.4 16.6 L85.9 19.9 L88.6 23.0 L91.3 26.1 L92.8 30.0 L92.4 34.6 L91.5 38.9 L91.9 42.6 L94.4 46.1 Z" fill="url(#wax)"/>
-          <circle cx="50" cy="50" r="33" fill="none" stroke="#5a1814" stroke-opacity="0.55" stroke-width="1.6"/>
-          <circle cx="50" cy="50" r="33" fill="none" stroke="#e8a59a" stroke-opacity="0.35" stroke-width="0.8" transform="translate(0.6 0.8)"/>
-          <text x="50" y="58" text-anchor="middle" class="seal-text">F&amp;V</text>
-          <text x="50.6" y="58.8" text-anchor="middle" class="seal-text seal-light">F&amp;V</text>
-        </svg>
       </figure>
 
       <div class="hero-text">
-        <p class="hand hero-hand">Abbiamo deciso di dirci s&igrave;&hellip;</p>
         <h1>Francesco <span class="amp">&amp;</span> Valentina</h1>
         <span class="ornament" aria-hidden="true"></span>
-        <p class="hero-invite">&hellip;e vi invitiamo al nostro matrimonio, per festeggiarlo insieme a voi tra gli ulivi e il mare di Puglia.</p>
+        <p class="hero-invite">Abbiamo deciso di dirci s&igrave; e vorremmo farlo con voi accanto: siamo felici di invitarvi al nostro matrimonio.</p>
         <p class="hero-date"><span>Sabato 22 maggio 2027</span><span class="dot" aria-hidden="true">·</span><span>Trani</span></p>
 
         <div id="countdown" class="countdown" aria-live="off"></div>
@@ -108,6 +95,10 @@
     </header>
 
     <div class="polaroids" tabindex="0" aria-label="Le nostre foto: scorrete di lato">
+      <figure class="polaroid p0 mobile-only">
+        <img src="../foto/noi-dune.jpg" alt="Francesco e Valentina in cima a una duna al tramonto" loading="lazy">
+        <figcaption>In cima alla duna, a caccia di tramonti</figcaption>
+      </figure>
       <figure class="polaroid p1">
         <img src="../foto/noi-edimburgo.jpg" alt="Selfie di Francesco e Valentina a Edimburgo, tra le case colorate di Victoria Street" loading="lazy">
         <figcaption>Edimburgo: pietra antica e case color caramella</figcaption>
@@ -481,7 +472,7 @@
   <p class="footer-date">22 &middot; 05 &middot; 2027</p>
 </footer>
 
-<script src="../script.js"></script>
-<script src="fresca.js"></script>
+<script src="../script.js?v=6"></script>
+<script src="fresca.js?v=6"></script>
 </body>
 </html>

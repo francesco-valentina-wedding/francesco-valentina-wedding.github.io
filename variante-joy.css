@@ -381,31 +381,31 @@ section[id] { scroll-margin-top: var(--nav-h); }
   text-align: center;
 }
 
-/* Our three photos fanned like prints on the card: the centre one in front and
-   level, the side ones tucked behind and tilted outwards. */
-.trio {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: min(100%, 350px);
-  margin: 0 0 2.2rem;
-  padding: 0.6rem 0 0.8rem;
+/* Our three photos as postcards side by side: same size, uniform white border,
+   level, with only the shadow lifting them off the card. */
+.postcards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.5rem, 2vw, 0.9rem);
+  width: min(100%, 380px);
+  margin: 0 0 2.4rem;
 }
 
-.trio img {
-  width: 37%;
-  aspect-ratio: 3 / 4;
+.postcards img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  border: 5px solid #fff;
+  padding: 5px;
+  background: #fff;
   border-radius: 2px;
-  box-shadow: 0 12px 26px -14px rgba(58, 50, 38, 0.55), 0 1px 3px rgba(58, 50, 38, 0.12);
+  box-shadow: 0 12px 24px -14px rgba(58, 50, 38, 0.5), 0 1px 3px rgba(58, 50, 38, 0.12);
 }
 
-.trio-l { transform: translateY(14px) rotate(-7deg); margin-right: -7%; object-position: 50% 75%; }
-.trio-c { position: relative; z-index: 1; width: 40%; object-position: 50% 58%; }
-.trio-r { transform: translateY(14px) rotate(7deg); margin-left: -7%; object-position: 50% 40%; }
+.pc-l { object-position: 50% 75%; }
+.pc-c { object-position: 50% 58%; }
+.pc-r { object-position: 50% 40%; }
 
-/* Welcome rhythm: invite, sub-line, rule, date. Gaps grow toward the date so the
+/* Welcome rhythm: invite, rule, date. Gaps grow toward the date so the
    invitation reads as one block and the date as the next. */
 .page-invite {
   margin: 0;
@@ -416,7 +416,6 @@ section[id] { scroll-margin-top: var(--nav-h); }
   color: var(--clay);
 }
 
-.page-invite-sub { margin: 0.9rem 0 0; max-width: 30ch; font-size: 0.98rem; opacity: 0.8; }
 
 .page-divider {
   display: block;
@@ -888,7 +887,8 @@ footer p { margin: 0; }
     --pad-y: 5rem;
     padding: var(--pad-y) 1.5rem;
   }
-  .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
+  /* .page.page-welcome: must beat the generic .page padding of the 560px block */
+  .page.page-welcome { min-height: auto; padding-top: 5.5rem; padding-bottom: 4rem; }
 
   /* Colore proprio invece del paper di base, per distinguerla dalle sezioni
      accanto senza margini o ombre da card. */

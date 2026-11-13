@@ -1,5 +1,5 @@
 /* Variante "fresca": Mediterranean palette (limestone white, Adriatic blue, olive,
-   lemon), polaroid photos, olive-sprig dividers and a wax seal.
+   lemon), postcard and polaroid photos, olive-sprig dividers.
    Mobile-first: base rules are the phone layout, media queries widen it. */
 
 :root {
@@ -61,7 +61,8 @@ strong { font-weight: 600; color: var(--sea); }
 
 .hand { font-family: var(--hand); font-weight: 500; line-height: 1.1; }
 
-.amp { font-style: italic; color: var(--terra); }
+/* Upright ampersand: the italic one is too ornate. */
+.amp { font-style: normal; color: var(--terra); }
 
 .skip {
   position: absolute;
@@ -139,7 +140,7 @@ strong { font-weight: 600; color: var(--sea); }
   text-decoration: none;
   letter-spacing: 0.02em;
 }
-.monogram span { margin: 0 0.1em; font-style: italic; color: var(--terra); }
+.monogram span { margin: 0 0.1em; color: var(--terra); }
 
 .topbar-actions { display: flex; align-items: center; gap: 0.6rem; }
 .topbar-rsvp { min-height: 44px; padding: 0 1.1rem; font-size: 0.82rem; }
@@ -267,32 +268,13 @@ body.menu-open .menu li { opacity: 1; transform: none; }
   text-align: center;
 }
 
-.polaroid-hero {
-  --r: 2deg;
-  flex: none;
-  width: min(70vw, 300px);
-  padding: 14px 14px 0;
-}
-.polaroid-hero img { object-position: 50% 58%; }
-.polaroid-hero figcaption { font-size: 1.5rem; padding: 0.8rem 0.3rem 1.1rem; }
-
-/* Wax seal pressed on the corner of the photo. */
-.seal {
-  position: absolute;
-  right: -26px;
-  bottom: 52px;
-  width: 84px;
-  height: 84px;
-  transform: rotate(-14deg);
-  filter: drop-shadow(0 6px 8px rgba(70, 20, 15, 0.35));
-}
-.seal-text { font-family: var(--serif); font-size: 23px; fill: #5a1814; fill-opacity: 0.75; }
-.seal-light { fill: #e8a59a; fill-opacity: 0.35; }
+/* Postcard: uniform white border, square-ish corners, a gentle tilt. Shown only
+   on the two-column layout; on a phone the photo joins "Prima del sì". */
+.postcard-hero { display: none; }
 
 .hero-text { max-width: 560px; }
 .hero-text .ornament { margin-top: 1.5rem; margin-bottom: 1.4rem; }
 
-.hero-hand { margin: 0 0 0.8rem; font-size: clamp(1.7rem, 6vw, 2.1rem); color: var(--terra); }
 
 .hero h1 {
   font-size: clamp(2.7rem, 11.5vw, 5.4rem);
@@ -300,7 +282,7 @@ body.menu-open .menu li { opacity: 1; transform: none; }
   line-height: 1.02;
   letter-spacing: -0.02em;
 }
-.hero h1 .amp { display: inline-block; font-weight: 300; }
+.hero h1 .amp { font-weight: 300; }
 
 .hero-invite {
   margin: 0 auto 1.6rem;
@@ -360,7 +342,7 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 .hero-note { margin: 1.4rem 0 0; font-size: 1.6rem; color: var(--olive); }
 
 /* Entrance on load: the hero is above the fold, no need to wait for scroll. */
-.js .polaroid-hero, .js .hero-text > * { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.js .postcard-hero, .js .hero-text > * { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .js .hero-text > :nth-child(2) { animation-delay: 0.08s; }
 .js .hero-text > :nth-child(3) { animation-delay: 0.16s; }
 .js .hero-text > :nth-child(4) { animation-delay: 0.24s; }
@@ -522,6 +504,14 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 .poll-result { min-height: 1.6em; margin: 0.6rem 0 0; font-size: 1.5rem; color: var(--sea); }
 
+/* Single column: questions and answers stacked and centred. */
+@media (max-width: 759px) {
+  .poll, .poll-q p { text-align: center; }
+  .poll-q { flex-direction: column; justify-content: center; }
+  .poll-q p { flex-basis: auto; }
+  .poll-opts { justify-content: center; }
+}
+
 /* ---------- PROGRAMMA ---------- */
 
 .events { display: grid; gap: 1.4rem; margin: 0 auto; padding: 0; list-style: none; }
@@ -660,7 +650,8 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 /* ---------- REGALO + CONTATTI ---------- */
 
-.iban-box { margin-top: 1.2rem; padding: 1.3rem 1rem; border-radius: 16px; background: var(--sand); text-align: center; }
+/* Same white as the card, set off by a hairline: one uniform background. */
+.iban-box { margin-top: 1.2rem; padding: 1.3rem 1rem; border: 1px solid var(--line); border-radius: 16px; text-align: center; }
 .iban-label { margin: 0 0 0.3rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .iban { margin: 0 0 0.9rem; font-size: clamp(0.95rem, 4.3vw, 1.2rem); font-weight: 600; letter-spacing: 0.05em; color: var(--sea); }
 
@@ -784,17 +775,6 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
 }
 
 @media (min-width: 760px) {
-  .polaroids {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.4rem, 3vw, 2.6rem);
-    margin: 0 auto;
-    padding: 1rem 0 0;
-    overflow: visible;
-    max-width: 1000px;
-  }
-  .polaroid.p2 { margin-top: 2.2rem; }
-  .swipe-hint { display: none; }
   .cards-2, .cards-3 { grid-template-columns: 1fr 1fr; }
   .poll { margin-top: 4rem; }
 }
@@ -807,6 +787,18 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
 }
 
 @media (min-width: 960px) {
+  .polaroids {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.4rem, 3vw, 2.6rem);
+    margin: 0 auto;
+    padding: 1rem 0 0;
+    overflow: visible;
+    max-width: 1000px;
+  }
+  .polaroid.p2 { margin-top: 2.2rem; }
+  .swipe-hint { display: none; }
+  .mobile-only { display: none; }
   .hero-grid {
     grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
@@ -815,12 +807,23 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
     padding: 1rem 2.5rem 4rem;
     text-align: left;
   }
-  .polaroid-hero { order: 2; width: min(100%, 400px); justify-self: center; }
+  .postcard-hero {
+    display: block;
+    order: 2;
+    justify-self: center;
+    width: min(100%, 400px);
+    margin: 0;
+    padding: 12px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 22px 44px -24px rgba(29, 42, 49, 0.55), 0 1px 3px rgba(29, 42, 49, 0.1);
+    transform: rotate(1.5deg);
+  }
+  .postcard-hero img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 58%; }
   .hero-text { max-width: 600px; }
   .hero-invite { margin-left: 0; }
   .hero-date, .hero-cta { justify-content: flex-start; }
   .countdown { margin-left: 0; }
-  .seal { width: 104px; height: 104px; right: -40px; bottom: 70px; }
   .hero-text .ornament { margin-left: 0; background-position: left center; }
 }
 
