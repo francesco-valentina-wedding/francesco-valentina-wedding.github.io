@@ -9,7 +9,7 @@ branch `main`, root). Lo sviluppo avviene su `develop`, il merge su `main` pubbl
 ```text
 index.html               la pagina
 style.css                stile (palette e font nel blocco :root in cima)
-main.js                  menu, sondaggio "scommesse", modulo canzone/augurio
+main.js                  menu, sondaggio "scommesse"
 script.js                countdown, meteo, RSVP, copia IBAN, animazioni
 google-apps-script.gs    copia dello script Google collegato al foglio (vedi sotto)
 matrimonio.ics           evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
@@ -29,7 +29,6 @@ sulla foto va mantenuta; `citta-bari.jpg` è CC0 (Bernard Gagnon).
 
 ## Prima di mandare il link agli invitati
 
-- [ ] IBAN ancora finto.
 - [ ] Verificare la stima "circa 25 minuti" dalla chiesa al ricevimento.
 
 ## Foglio Google: RSVP, scommesse, dediche
@@ -42,7 +41,6 @@ inviano i moduli della pagina e lo scrive nel foglio:
 - **Scommesse** → scheda `Scommesse` (votante anonimo, domanda, risposta).
   `GET ?action=poll` restituisce i conteggi, contando solo l'ultimo voto di
   ciascun invitato per domanda: sono le percentuali mostrate sulla pagina.
-- **Canzone e augurio** → scheda `Dediche`.
 
 Le schede e le intestazioni si creano da sole. Dopo ogni modifica dello script:
 

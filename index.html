@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:opsz,wght@9..40,300..600&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
 <!-- Only the "&" glyph, from Cormorant Garamond italic: a calligraphic ampersand. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&text=%26&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
@@ -94,21 +94,21 @@
     <div class="polaroids" tabindex="0" aria-label="Le nostre foto: scorrete di lato">
       <figure class="polaroid p1">
         <img src="foto/noi-dune.jpg" alt="Francesco e Valentina abbracciati in cima a una duna, al tramonto" loading="lazy">
-        <figcaption>Dove il cielo si accende, noi ci stringiamo un po&rsquo; di pi&ugrave;</figcaption>
+        <figcaption>Sulle dune, ad aspettare il tramonto</figcaption>
       </figure>
       <figure class="polaroid p2">
         <img src="foto/noi-edimburgo.jpg" alt="Selfie di Francesco e Valentina a Edimburgo, tra le case colorate di Victoria Street" loading="lazy">
-        <figcaption>Tra le vie di Edimburgo, a sognare la nostra casa a colori</figcaption>
+        <figcaption>A spasso per Edimburgo</figcaption>
       </figure>
       <figure class="polaroid p3">
         <img src="foto/noi-matrimonio-amici.jpg" alt="Francesco e Valentina eleganti davanti a una chiesa addobbata di fiori bianchi" loading="lazy">
-        <figcaption>Quel giorno ci siamo guardati e abbiamo pensato: la prossima volta tocca a noi</figcaption>
+        <figcaption>Al matrimonio di amici, a prendere appunti</figcaption>
       </figure>
       <a class="polaroid p4 polaroid-empty" href="#galleria">
         <span class="polaroid-slot" aria-hidden="true">
           <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5h6V7"/><circle cx="12" cy="13.5" r="3.6"/></svg>
         </span>
-        <span class="polaroid-cap">Qui manca ancora una foto: la pi&ugrave; bella, quella con voi</span>
+        <span class="polaroid-cap">Qui manca una foto: quella con voi</span>
       </a>
     </div>
     <p class="swipe-hint hand" aria-hidden="true">scorrete &rarr;</p>
@@ -128,15 +128,11 @@
         <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
       </div>
       <div class="poll-q" data-poll="ritardo">
-        <p>&hellip;arriver&agrave; in ritardo? <span class="poll-aside">(la sposa ha la giustificazione)</span></p>
+        <p>&hellip;arriver&agrave; in ritardo?</p>
         <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
       </div>
       <div class="poll-q" data-poll="pista">
         <p>&hellip;trasciner&agrave; tutti in pista?</p>
-        <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
-      </div>
-      <div class="poll-q" data-poll="primo-passo">
-        <p>&hellip;ha fatto il primo passo?</p>
         <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
       </div>
       <div class="poll-q" data-poll="cucina">
@@ -147,38 +143,11 @@
         <p>&hellip;si addormenta per primo sul divano?</p>
         <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
       </div>
-      <div class="poll-q" data-poll="telecomando">
-        <p>&hellip;ha l&rsquo;ultima parola sul telecomando?</p>
-        <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
-      </div>
       <div class="poll-q" data-poll="ragione">
         <p>&hellip;ha sempre ragione? <span class="poll-aside">(lo sappiamo gi&agrave;, ma votate lo stesso)</span></p>
         <div class="poll-opts"><button type="button" data-vote="Francesco">Francesco</button><button type="button" data-vote="Valentina">Valentina</button></div>
       </div>
       <p class="poll-result hand" aria-live="polite"></p>
-    </div>
-
-    <!-- Second game: the guests build the party playlist and leave us a wish. -->
-    <div class="dedica card">
-      <header class="sec-head sec-head-left">
-        <p class="kicker">per la festa</p>
-        <h3>La colonna sonora la scegliete voi</h3>
-      </header>
-      <p>Diteci la canzone che non pu&ograve; mancare in pista, e se vi va lasciateci un augurio o un consiglio per la nostra vita insieme. Li leggeremo tutti.</p>
-      <form id="dedica-form">
-        <input type="hidden" name="type" value="dedica">
-        <label class="field"><span>Il vostro nome</span><input type="text" name="nome" autocomplete="name"></label>
-        <label class="field"><span>La canzone che non pu&ograve; mancare</span><input type="text" name="canzone" placeholder="Titolo e artista"></label>
-        <label class="field"><span>Un augurio o un consiglio per noi</span><textarea name="augurio" placeholder="Siamo tutt&rsquo;orecchi&hellip;"></textarea></label>
-        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit" class="pill pill-solid">Invia</button>
-        <p class="form-error" role="alert" hidden>Invio non riuscito. Controllate la connessione e riprovate.</p>
-      </form>
-      <div class="thanks" hidden>
-        <p class="hand">Grazie!</p>
-        <p>L&rsquo;abbiamo ricevuto. Se vi viene in mente un&rsquo;altra canzone, scrivetecela pure.</p>
-        <button type="button" class="pill pill-ghost pill-sm dedica-again">Aggiungine un&rsquo;altra</button>
-      </div>
     </div>
   </section>
 
@@ -220,7 +189,6 @@
           <h3>Ricevimento</h3>
           <p class="event-place">Corte Bracco dei Germani<br><span>S.P. 2 km 6, Corato</span></p>
           <ul class="event-facts">
-            <li>Il pranzo nella corte in pietra, per brindare insieme dopo il s&igrave;.</li>
             <li>Circa 25 minuti dal Santuario: c&rsquo;&egrave; tutto il tempo, nessuna fretta.</li>
             <li>Parcheggio a disposizione degli ospiti all&rsquo;interno della struttura.</li>
           </ul>
@@ -238,8 +206,6 @@
           <p class="event-place">Si balla!</p>
           <ul class="event-facts">
             <li>Dopo il pranzo la festa entra nel vivo: musica, brindisi e pista aperta fino a sera.</li>
-            <li>Nessun orario di chiusura: preparatevi a scatenarvi con noi.</li>
-            <li>Un consiglio da amici: in borsa un paio di scarpe comode. Vi serviranno.</li>
           </ul>
         </div>
       </li>
@@ -259,7 +225,7 @@
     <header class="sec-head">
       <p class="kicker">come arrivare</p>
       <h2>Viaggio</h2>
-      <p class="lead">Come raggiungere la Puglia e muoversi in zona.</p>
+      <p class="lead">Come raggiungere le varie location e muoversi in zona.</p>
     </header>
 
     <div class="cards cards-3">
@@ -278,7 +244,7 @@
         <ul>
           <li>Le stazioni pi&ugrave; comode sono <strong>Trani</strong> e <strong>Corato</strong>, sulla linea Bari&ndash;Foggia.</li>
           <li>Trani &egrave; la scelta migliore se dormite in centro: la stazione &egrave; a pochi minuti dal Santuario.</li>
-          <li>Da entrambe le stazioni serve poi un&rsquo;auto o un taxi per raggiungere la sala, che &egrave; in campagna.</li>
+          <li>Da entrambe le stazioni serve poi un&rsquo;auto o un taxi per raggiungere la sala.</li>
         </ul>
       </article>
       <article class="card info">
@@ -399,7 +365,7 @@
       </details>
       <details>
         <summary>Quanto dista il ricevimento dalla cerimonia?</summary>
-        <p>Il Santuario &egrave; sulla costa vicino a Trani, la sala &egrave; in campagna verso Corato: <strong>circa 25 minuti</strong> di strada. Dopo la cerimonia c&rsquo;&egrave; tutto il tempo per spostarsi.</p>
+        <p>Il Santuario &egrave; sulla costa vicino a Trani, la sala &egrave; a Corato: <strong>circa 25 minuti</strong> di strada. Dopo la cerimonia c&rsquo;&egrave; tutto il tempo per spostarsi.</p>
       </details>
       <details>
         <summary>C&rsquo;&egrave; parcheggio?</summary>
@@ -425,14 +391,15 @@
     <div class="split split-even">
       <div class="card gift-card">
         <header class="sec-head sec-head-left">
-          <p class="kicker">il regalo pi&ugrave; bello</p>
-          <h2>Siete voi</h2>
+          <p class="kicker">il regalo pi&ugrave; bello siete voi</p>
+          <h2>Il nostro viaggio di nozze</h2>
         </header>
-        <p>Avervi accanto in questo giorno &egrave; gi&agrave; tutto ci&ograve; che desideriamo. Se per&ograve; vi fa piacere accompagnarci anche nel nostro primo viaggio da marito e moglie, ecco dove trovarci.</p>
+        <p>Partiremo per un viaggio on the road nel West americano: da Los Angeles lungo la Route 66, tra il Grand Canyon e i parchi dello Utah, Las Vegas, la Death Valley e Yosemite, fino a San Francisco. E per finire qualche giorno di mare alle Hawaii.</p>
+        <p>Se vi fa piacere regalarci un pezzetto di questa avventura, un tramonto sul Grand Canyon o una cena sull&rsquo;oceano, questo &egrave; il nostro IBAN:</p>
         <div class="iban-box">
-          <p class="iban-label">IBAN &middot; Francesco e Valentina</p>
-          <p class="iban">IT60 X054 2811 1010 0000 0123 456</p>
-          <button type="button" class="pill pill-solid pill-sm" data-copy="IT60X0542811101000000123456">Copia IBAN</button>
+          <p class="iban-label">Intestato a Francesco Nasca e Valentina Apruzzese</p>
+          <p class="iban">IT71 G030 6905 2451 0000 0014 330</p>
+          <button type="button" class="pill pill-solid pill-sm" data-copy="IT71G0306905245100000014330">Copia IBAN</button>
         </div>
       </div>
 
@@ -534,7 +501,7 @@
   <p class="footer-date">22 &middot; 05 &middot; 2027</p>
 </footer>
 
-<script src="script.js?v=9"></script>
-<script src="main.js?v=9"></script>
+<script src="script.js?v=10"></script>
+<script src="main.js?v=10"></script>
 </body>
 </html>

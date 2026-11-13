@@ -2,19 +2,17 @@
 // Not used by the site at runtime: after editing, paste it into the Apps Script
 // editor and publish a new version of the existing deployment.
 //
-// One endpoint, three kinds of POST (field "type"):
+// One endpoint, two kinds of POST (field "type"):
 //   (none)   RSVP form            -> sheet "RSVP"
 //   vote     guest poll vote      -> sheet "Scommesse"
-//   dedica   song + wish          -> sheet "Dediche"
 // GET ?action=poll returns the running poll tallies as JSON.
 
 const RSVP_HEADERS = ['Timestamp', 'Nome', 'Cognome', 'Email', 'Presenza', 'Accompagnatori', 'Note', 'Nomi accompagnatori'];
 const VOTE_HEADERS = ['Timestamp', 'Votante', 'Domanda', 'Risposta'];
-const DEDICA_HEADERS = ['Timestamp', 'Nome', 'Canzone', 'Augurio'];
 
 // Poll questions and answers accepted from the page: anything else is ignored,
 // so the public endpoint cannot be used to fill the sheet with junk.
-const POLL_QUESTIONS = ['commozione', 'ritardo', 'pista', 'primo-passo', 'cucina', 'divano', 'telecomando', 'ragione'];
+const POLL_QUESTIONS = ['commozione', 'ritardo', 'pista', 'cucina', 'divano', 'ragione'];
 const POLL_ANSWERS = ['Francesco', 'Valentina'];
 
 // Sheets evaluates cell text starting with these characters as a formula.
@@ -45,12 +43,6 @@ function doPost(e) {
     }
     sheetWithHeaders('Scommesse', VOTE_HEADERS)
       .appendRow([new Date(), asText(p.voter).slice(0, 64), p.question, p.answer]);
-    return json({ result: 'success' });
-  }
-
-  if (p.type === 'dedica') {
-    sheetWithHeaders('Dediche', DEDICA_HEADERS)
-      .appendRow([new Date(), asText(p.nome), asText(p.canzone), asText(p.augurio)]);
     return json({ result: 'success' });
   }
 

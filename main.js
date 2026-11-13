@@ -1,4 +1,4 @@
-// top bar, full-screen menu, guest poll, song and wish form.
+// Top bar, full-screen menu, guest poll.
 // Countdown, weather, RSVP and copy buttons live in script.js.
 
 (function () {
@@ -39,7 +39,7 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) close(true); });
 })();
 
-// The RSVP Apps Script also stores poll votes and guest wishes (see
+// The RSVP Apps Script also stores poll votes (see
 // google-apps-script.gs), so every form on the page talks to the same endpoint.
 const SHEET_URL = document.getElementById('rsvp-form')?.action;
 
@@ -138,41 +138,3 @@ function storageSet(key, value) {
   loadTallies();
 })();
 
-// Song and wish for the couple, sent to the same sheet.
-(function () {
-  const form = document.getElementById('dedica-form');
-  if (!form || !SHEET_URL) return;
-  const box = form.closest('.dedica');
-  const thanks = box.querySelector('.thanks');
-  const error = form.querySelector('.form-error');
-  const button = form.querySelector('button[type="submit"]');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!form.elements.canzone.value.trim() && !form.elements.augurio.value.trim()) {
-      error.textContent = 'Scriveteci almeno una canzone o un augurio.';
-      error.hidden = false;
-      return;
-    }
-    error.hidden = true;
-    button.disabled = true;
-    button.textContent = 'Invio…';
-    try {
-      const res = await fetch(SHEET_URL, { method: 'POST', body: new FormData(form) });
-      if ((await res.json()).result !== 'success') throw new Error('sheet');
-      form.hidden = true;
-      thanks.hidden = false;
-      form.reset();
-    } catch {
-      error.textContent = 'Invio non riuscito. Controllate la connessione e riprovate.';
-      error.hidden = false;
-    }
-    button.disabled = false;
-    button.textContent = 'Invia';
-  });
-
-  box.querySelector('.dedica-again').addEventListener('click', () => {
-    thanks.hidden = true;
-    form.hidden = false;
-  });
-})();
