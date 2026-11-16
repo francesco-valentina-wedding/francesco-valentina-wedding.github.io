@@ -1,4 +1,4 @@
-// Top bar, full-screen menu, guest poll, honeymoon road animation.
+// Top bar, full-screen menu, guest poll, honeymoon road map animation.
 // Countdown, weather, RSVP and copy buttons live in script.js.
 
 (function () {
@@ -103,23 +103,26 @@ function storageSet(key, value) {
   paint();
 })();
 
-// Honeymoon road: the car drives along the route as the section scrolls past.
-// --drive goes from 0 (section entering from below) to 1 (section centred and
-// beyond); the CSS turns it into a position along the road.
+// Honeymoon map: the SVG timelines (car, then plane) are held at the start and
+// played once when the map comes into view. Without JS they simply run on load.
 (function () {
   const trip = document.querySelector('.trip');
-  if (!trip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!trip) return;
+  const maps = Array.from(trip.querySelectorAll('svg.trip-map'));
+  const END = 10; // seconds: past the end of the plane's flight
 
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const r = trip.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const p = (vh - r.top) / (vh * 0.55 + r.height * 0.6);
-    trip.style.setProperty('--drive', Math.min(1, Math.max(0, p)).toFixed(3));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    maps.forEach((m) => { m.pauseAnimations(); m.setCurrentTime(END); });
+    return;
   }
-  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-  update();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+
+  maps.forEach((m) => { m.pauseAnimations(); m.setCurrentTime(0); });
+  const io = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    maps.forEach((m) => { m.setCurrentTime(0); m.unpauseAnimations(); });
+    trip.classList.add('driving');
+    setTimeout(() => trip.classList.remove('driving'), 6500);
+  }, { threshold: 0.35 });
+  io.observe(trip);
 })();

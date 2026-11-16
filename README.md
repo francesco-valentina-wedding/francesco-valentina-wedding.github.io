@@ -13,7 +13,7 @@ main.js                  menu, sondaggio "scommesse", macchinina del viaggio di 
 script.js                countdown, meteo, RSVP, copia IBAN, animazioni
 google-apps-script.gs    copia dello script Google collegato al foglio (vedi sotto)
 matrimonio.ics           evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
-foto/                    foto del sito; citta-*.jpg e viaggio-*.jpg vengono da Wikimedia Commons
+foto/                    foto del sito; citta-*.jpg e le tappe viaggio-*.jpg vengono da Wikimedia Commons
 foto/og-image.jpg        anteprima per WhatsApp / Facebook (1200×630)
 ```
 
@@ -25,7 +25,8 @@ di `style.css`, `main.js` o `script.js` va incrementato `N`, altrimenti i browse
 degli invitati continuano a usare la versione vecchia.
 
 **Crediti foto:** `citta-corato.jpg` è CC BY-SA 4.0 (FioreArchive) e l'attribuzione
-sulla foto va mantenuta; `citta-bari.jpg` e le `viaggio-*.jpg` sono CC0 o pubblico dominio.
+sulla foto va mantenuta; `citta-bari.jpg` e le foto delle tappe `viaggio-*.jpg` sono CC0 o pubblico dominio
+(nessuna attribuzione richiesta). `viaggio-illustrazione.jpg` è nostra.
 
 ## Prima di mandare il link agli invitati
 
