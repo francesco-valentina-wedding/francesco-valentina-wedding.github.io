@@ -105,24 +105,47 @@ function storageSet(key, value) {
 
 // Honeymoon map: the SVG timelines (car, then plane) are held at the start and
 // played once when the map comes into view. Without JS they simply run on load.
+// On phones the map is wider than the screen: the strip scrolls to keep the car
+// (then the plane) in view, until the guest scrolls it by hand.
 (function () {
-  const trip = document.querySelector('.trip');
-  if (!trip) return;
-  const maps = Array.from(trip.querySelectorAll('svg.trip-map'));
-  const END = 10; // seconds: past the end of the plane's flight
+  const strip = document.querySelector('.trip-strip');
+  const trip = strip?.querySelector('.trip');
+  const map = trip?.querySelector('svg.trip-map');
+  if (!map) return;
+  const DRIVE = 6.5, END = 9.7; // seconds, as in the SVG animations
 
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    maps.forEach((m) => { m.pauseAnimations(); m.setCurrentTime(END); });
+    map.pauseAnimations();
+    map.setCurrentTime(END);
     return;
   }
+  map.pauseAnimations();
+  map.setCurrentTime(0);
 
-  maps.forEach((m) => { m.pauseAnimations(); m.setCurrentTime(0); });
+  const car = map.querySelector('.car');
+  const plane = map.querySelector('.plane');
+  let follow = true;
+  ['pointerdown', 'touchstart', 'wheel'].forEach((ev) =>
+    strip.addEventListener(ev, () => { follow = false; }, { passive: true }));
+
+  function track() {
+    const t = map.getCurrentTime();
+    if (follow && strip.scrollWidth > strip.clientWidth) {
+      const r = (t < DRIVE ? car : plane).getBoundingClientRect();
+      const s = strip.getBoundingClientRect();
+      strip.scrollLeft += (r.left + r.width / 2) - (s.left + s.width / 2);
+    }
+    if (t < END) requestAnimationFrame(track);
+  }
+
   const io = new IntersectionObserver((entries) => {
     if (!entries.some((e) => e.isIntersecting)) return;
     io.disconnect();
-    maps.forEach((m) => { m.setCurrentTime(0); m.unpauseAnimations(); });
+    map.setCurrentTime(0);
+    map.unpauseAnimations();
     trip.classList.add('driving');
-    setTimeout(() => trip.classList.remove('driving'), 6500);
-  }, { threshold: 0.35 });
-  io.observe(trip);
+    setTimeout(() => trip.classList.remove('driving'), DRIVE * 1000);
+    requestAnimationFrame(track);
+  }, { threshold: 0.5 });
+  io.observe(strip);
 })();

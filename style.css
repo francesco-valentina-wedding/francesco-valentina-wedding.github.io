@@ -701,15 +701,14 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 
 /* ---------- VIAGGIO DI NOZZE ---------- */
 
-/* A postcard of the three legs, then the map. The map is an SVG road with the
-   stops pinned on it: one tall drawing for phones, one wide for desktop. Stop
-   positions repeat the pin coordinates used in the SVG paths:
-   tall 360x1260, pin i at y = 70 + 140i, alternating sides;
-   wide 1000x470, pin i at x = 60 + 110i, y = 290 (even) / 220 (odd). */
+/* A postcard of the three legs, then the map: an SVG road with the stops
+   pinned on it. Stop positions repeat the pin coordinates of the SVG paths
+   (viewBox 1000x470, pin i at x = 60 + 110i, y = 290 even / 220 odd).
+   Phones get the same map at a fixed width in a sideways strip. */
 .trip-postcard {
   position: relative;
   width: min(100%, 380px);
-  margin: 0 auto 3rem;
+  margin: 0 auto 0.4rem;
   padding: 10px;
   background: #fff;
   box-shadow: 0 18px 34px -18px rgba(29, 42, 49, 0.45), 0 1px 3px rgba(29, 42, 49, 0.08);
@@ -727,10 +726,16 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 }
 .trip-postcard img { width: 100%; height: auto; }
 
-.trip { position: relative; max-width: 420px; margin: 0 auto 2.4rem; aspect-ratio: 360 / 1260; }
+.trip-strip {
+  margin: 0 -1.25rem 2rem;
+  padding: 0 1.25rem 0.6rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.trip-strip::-webkit-scrollbar { display: none; }
+.trip { position: relative; width: 700px; aspect-ratio: 1000 / 470; }
 
 .trip-map { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.trip-map-wide { display: none; }
 .trip-map .road-edge { fill: none; stroke: #efe4cf; stroke-width: 34; stroke-linecap: round; stroke-linejoin: round; }
 .trip-map .road { fill: none; stroke: #4a555b; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
 .trip-map .road-line { fill: none; stroke: #fbf8f2; stroke-width: 2.2; stroke-dasharray: 10 11; stroke-linecap: round; }
@@ -739,30 +744,31 @@ body.menu-open .menu li { opacity: 1; transform: none; }
 .trip-map .plane { fill: var(--sea); }
 
 .trip-stops { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+/* even stops sit below a low bend, odd ones above a high bend */
 .stop {
   position: absolute;
   z-index: 1;
-  top: calc((70 + var(--i) * 140) / 1260 * 100%);
-  left: 29%;
+  top: calc(290 / 470 * 100%);
+  left: calc((60 + var(--i) * 110) / 1000 * 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 100px;
   text-align: center;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 14px);
 }
-.stop:nth-child(even) { left: 71%; }
+.stop:nth-child(even) { top: calc(220 / 470 * 100%); transform: translate(-50%, calc(-100% - 14px)); }
 .stop img {
-  width: 84px;
-  height: 84px;
-  margin-bottom: 0.45rem;
-  border: 4px solid #fff;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.35rem;
+  border: 3px solid #fff;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 10px 22px -12px rgba(29, 42, 49, 0.55);
 }
-.stop-name { font-family: var(--serif); font-size: 1.15rem; line-height: 1.15; }
-.stop-note { font-family: var(--hand); font-size: 1.25rem; line-height: 1; color: var(--terra); }
+.stop-name { font-family: var(--serif); font-size: 0.95rem; line-height: 1.15; white-space: nowrap; }
+.stop-note { font-family: var(--hand); font-size: 1.05rem; line-height: 1; color: var(--terra); }
 
 .trip-map .car { pointer-events: none; }
 .trip.driving .car-svg .wheel { animation: spin 0.8s linear infinite; }
@@ -941,20 +947,14 @@ form .pill { width: 100%; margin-top: 0.4rem; min-height: 54px; font-size: 1rem;
 
 @media (min-width: 960px) {
   .trip-postcard { width: 440px; margin-bottom: 1rem; }
+  .trip-strip { margin: 0 auto 2.4rem; padding: 0; overflow: visible; }
   /* side room for the half-width labels of the first and last stop */
-  .trip { max-width: min(1120px, 100% - 7rem); aspect-ratio: 1000 / 470; }
-  .trip-map-tall { display: none; }
-  .trip-map-wide { display: block; }
-  /* even stops sit below a low bend, odd ones above a high bend */
-  .stop,
-  .stop:nth-child(even) {
-    top: calc(290 / 470 * 100%);
-    left: calc((60 + var(--i) * 110) / 1000 * 100%);
-    width: 130px;
-    transform: translate(-50%, 24px);
-  }
-  .stop:nth-child(even) { top: calc(220 / 470 * 100%); transform: translate(-50%, calc(-100% - 24px)); }
-  .stop img { width: 96px; height: 96px; }
+  .trip { width: auto; max-width: min(1120px, 100% - 7rem); margin: 0 auto; }
+  .stop { width: 130px; transform: translate(-50%, 24px); }
+  .stop:nth-child(even) { transform: translate(-50%, calc(-100% - 24px)); }
+  .stop img { width: 96px; height: 96px; margin-bottom: 0.6rem; border-width: 4px; }
+  .stop-name { font-size: 1.15rem; }
+  .stop-note { font-size: 1.25rem; }
 
   .polaroids {
     display: grid;

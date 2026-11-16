@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:opsz,wght@9..40,300..600&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
 <!-- Only the "&" glyph, from Cormorant Garamond italic: a calligraphic ampersand. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&text=%26&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 
@@ -400,7 +400,9 @@
 
     <!-- The route, stop by stop: the car drives from Los Angeles to San Francisco
          when the map scrolls into view (main.js), then the plane flies on to
-         Hawaii and New York. Pins and stops share the coordinates in style.css. -->
+         Hawaii and New York. Pins and stops share the coordinates in style.css.
+         On phones the strip scrolls sideways and follows the car. -->
+    <div class="trip-strip">
     <div class="trip">
       <ol class="trip-stops">
         <li class="stop" style="--i: 0">
@@ -500,66 +502,7 @@
             <animateMotion dur="6.5s" begin="0s" fill="freeze" rotate="0" calcMode="spline" keyTimes="0;1" keySplines=".35 0 .45 1" path="M60 290 C78.3 278.3 133.3 220.0 170 220 C206.7 220.0 243.3 290.0 280 290 C316.7 290.0 353.3 220.0 390 220 C426.7 220.0 463.3 290.0 500 290 C536.7 290.0 573.3 220.0 610 220 C646.7 220.0 701.7 278.3 720 290"/>
           </g>
         </svg>
-      <svg class="trip-map trip-map-tall" viewBox="0 0 360 1260" aria-hidden="true">
-          <path class="road-edge" d="M250 70 C226.7 93.3 110.0 163.3 110 210 C110.0 256.7 250.0 303.3 250 350 C250.0 396.7 110.0 443.3 110 490 C110.0 536.7 250.0 583.3 250 630 C250.0 676.7 110.0 723.3 110 770 C110.0 816.7 226.7 886.7 250 910"/>
-          <path class="road" d="M250 70 C226.7 93.3 110.0 163.3 110 210 C110.0 256.7 250.0 303.3 250 350 C250.0 396.7 110.0 443.3 110 490 C110.0 536.7 250.0 583.3 250 630 C250.0 676.7 110.0 723.3 110 770 C110.0 816.7 226.7 886.7 250 910"/>
-          <path class="road-line" d="M250 70 C226.7 93.3 110.0 163.3 110 210 C110.0 256.7 250.0 303.3 250 350 C250.0 396.7 110.0 443.3 110 490 C110.0 536.7 250.0 583.3 250 630 C250.0 676.7 110.0 723.3 110 770 C110.0 816.7 226.7 886.7 250 910"/>
-          <path class="flight" d="M250 910 C226.7 933.3 110.0 1003.3 110 1050 C110.0 1096.7 226.7 1166.7 250 1190"/>
-          <circle class="pin" cx="250" cy="70" r="7"/><circle class="pin" cx="110" cy="210" r="7"/><circle class="pin" cx="250" cy="350" r="7"/><circle class="pin" cx="110" cy="490" r="7"/><circle class="pin" cx="250" cy="630" r="7"/><circle class="pin" cx="110" cy="770" r="7"/><circle class="pin" cx="250" cy="910" r="7"/><circle class="pin" cx="110" cy="1050" r="7"/><circle class="pin" cx="250" cy="1190" r="7"/>
-          <g class="plane" opacity="0">
-            <path transform="rotate(90) scale(1.5) translate(-12 -12)" d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0v5l-8 5v2l8-2.5v5.5l-2 1.5V22l3.5-1 3.5 1v-1.5l-2-1.5V13z"/>
-            <set attributeName="opacity" to="1" begin="6.5s" fill="freeze"/>
-            <animateMotion dur="3.2s" begin="6.5s" fill="freeze" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .4 1" path="M250 910 C226.7 933.3 110.0 1003.3 110 1050 C110.0 1096.7 226.7 1166.7 250 1190"/>
-          </g>
-          <g class="car">
-            <svg class="car-svg" x="-70" y="-63" width="140" height="70" viewBox="0 0 280 140" overflow="visible"><g stroke="#8b9499" stroke-width="1.2" fill="none"><path d="M58 104 C 44 110, 34 116, 22 118"/><path d="M58 100 C 46 104, 40 106, 30 104"/></g>
-<g fill="#c9d0d4" stroke="#7d878c" stroke-width="1.2"><rect x="10" y="112" width="13" height="11" rx="2" transform="rotate(-14 16 117)"/><rect x="18" y="97" width="12" height="10" rx="2" transform="rotate(10 24 102)"/></g>
-<ellipse cx="156" cy="130" rx="100" ry="6" fill="#1d2a31" opacity="0.14"/>
-<g class="vale">
-<path d="M106 36 q0 -18 15 -18 q15 0 15 18 q0 9 3 16 q-4 6 -1 12 q-4 7 -1 16 h-33 q3 -9 -1 -16 q3 -6 -1 -12 q3 -7 4 -16z" fill="#6b3f26" stroke="#3b2416" stroke-width="1.4" stroke-linejoin="round"/>
-<rect x="117" y="48" width="8" height="12" rx="3" fill="#f5d1b3"/>
-<path d="M106 86 q1 -28 15 -29 q14 1 15 29 z" fill="#f0a07c" stroke="#3b2416" stroke-width="1.2"/>
-<circle cx="121" cy="40" r="11" fill="#f5d1b3" stroke="#3b2416" stroke-width="1.2"/>
-<path d="M110 40 q1 -14 12 -13.5 q10 .5 10 11 q-5 -7 -12 -5 q-5 2 -10 7.5z" fill="#6b3f26"/>
-<circle cx="117" cy="41.5" r="1.4" fill="#1d2a31"/><circle cx="125" cy="41.5" r="1.4" fill="#1d2a31"/>
-<circle cx="114.5" cy="45.5" r="2" fill="#f19b8e" opacity="0.6"/><circle cx="127.5" cy="45.5" r="2" fill="#f19b8e" opacity="0.6"/>
-<path d="M117.5 46 q3.5 3.5 7 0" stroke="#b5532f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-<g transform="translate(133 30)"><circle cx="0" cy="-3.5" r="3.2" fill="#e8606a"/><circle cx="3.4" cy="-1" r="3.2" fill="#e8606a"/><circle cx="2" cy="3" r="3.2" fill="#e8606a"/><circle cx="-2" cy="3" r="3.2" fill="#e8606a"/><circle cx="-3.4" cy="-1" r="3.2" fill="#e8606a"/><circle r="1.8" fill="#f2c14e"/></g>
-<path class="wave" d="M109 72 q-10 -12 -12 -30" stroke="#f5d1b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-<circle class="wave" cx="97" cy="40" r="4" fill="#f5d1b3"/>
-</g>
-<g class="fra">
-<rect x="153.5" y="48" width="9" height="11" rx="3" fill="#eebf9b"/>
-<path d="M141 86 q1 -30 17 -31 q16 1 17 31 z" fill="#7fb8cc" stroke="#1d2a31" stroke-width="1.2"/>
-<path d="M153 56 l5 7 l5 -7" fill="none" stroke="#fbf8f2" stroke-width="2"/>
-<circle cx="158" cy="38" r="11.5" fill="#eebf9b" stroke="#2a211c" stroke-width="1.2"/>
-<path d="M146.5 36 q-1 -14 11.5 -14 q12.5 0 11.5 14 q-2 -6 -5 -7 q-6 3 -13 0 q-4 1 -5 7z" fill="#2a211c"/>
-<path d="M146.8 39 q-.5 14 11.2 14 q11.7 0 11.2 -14 q-2 5 -4 6 q-7 -3.5 -14.4 0 q-2 -1 -4 -6z" fill="#2a211c"/>
-<path d="M154.5 47.5 q3.5 2.5 7 0" stroke="#f4d6c0" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-<circle cx="153.6" cy="38" r="4.2" fill="#fff" fill-opacity="0.35" stroke="#1d2a31" stroke-width="1.6"/>
-<circle cx="162.6" cy="38" r="4.2" fill="#fff" fill-opacity="0.35" stroke="#1d2a31" stroke-width="1.6"/>
-<path d="M157.8 37.6 h1" stroke="#1d2a31" stroke-width="1.6"/>
-<circle cx="153.8" cy="38.4" r="1.3" fill="#1d2a31"/><circle cx="162.8" cy="38.4" r="1.3" fill="#1d2a31"/>
-<path d="M168 80 q10 -4 16 -8" stroke="#7fb8cc" stroke-width="6" fill="none" stroke-linecap="round"/>
-</g>
-<path d="M184 74 l6 -10" stroke="#1d2a31" stroke-width="3" stroke-linecap="round"/>
-<path d="M198 78 L 207 52 L 213 54 L 205 80 z" fill="#d9edf2" opacity="0.9" stroke="#1d2a31" stroke-width="2" stroke-linejoin="round"/>
-<path d="M60 88 Q 62 78 78 78 L 196 78 Q 226 79 242 88 Q 254 90 254 100 L 254 106 Q 254 113 247 113 L 66 113 Q 57 113 57 105 z" fill="#f3e2bd" stroke="#1d2a31" stroke-width="2.4" stroke-linejoin="round"/>
-<path d="M64 99 L 252 100" stroke="#c8a978" stroke-width="2.4" stroke-linecap="round"/>
-<path d="M141 82 L 141 109" stroke="#1d2a31" stroke-width="1.4" opacity="0.5"/>
-<path d="M147 88 h10" stroke="#8b9499" stroke-width="2.4" stroke-linecap="round"/>
-<path d="M66 84 q12 6 24 0 t24 0 t24 0 t24 0 t24 0 t24 0" fill="none" stroke="#66763f" stroke-width="2"/>
-<g><circle cx="72" cy="86" r="3.4" fill="#e8606a"/><circle cx="90" cy="84" r="3" fill="#fbf8f2" stroke="#e8a0a0"/><circle cx="104" cy="87" r="3.4" fill="#f2c14e"/><circle cx="122" cy="84" r="3" fill="#e8606a"/><circle cx="138" cy="87" r="3.4" fill="#fbf8f2" stroke="#e8a0a0"/><circle cx="154" cy="84" r="3" fill="#f2c14e"/><circle cx="170" cy="87" r="3.4" fill="#e8606a"/><circle cx="186" cy="84" r="3" fill="#fbf8f2" stroke="#e8a0a0"/><circle cx="202" cy="87" r="3.4" fill="#f2c14e"/><circle cx="218" cy="84" r="3" fill="#e8606a"/></g>
-<circle cx="248" cy="95" r="4" fill="#f2c14e" stroke="#1d2a31" stroke-width="1.6"/>
-<path d="M244 111 h13" stroke="#9aa5a9" stroke-width="4" stroke-linecap="round"/>
-<path d="M53 111 h11" stroke="#9aa5a9" stroke-width="4" stroke-linecap="round"/>
-<g transform="rotate(-5 84 98)"><rect x="58" y="90" width="54" height="17" rx="3" fill="#fbf8f2" stroke="#1d2a31" stroke-width="1.6"/><text x="85" y="102.5" text-anchor="middle" font-family="Caveat, 'Segoe Print', cursive" font-size="11" font-weight="600" fill="#b5532f" textLength="46" lengthAdjust="spacingAndGlyphs">Just Married</text></g>
-<g class="wheel" style="transform-origin: 92px 115px"><circle cx="92" cy="115" r="16" fill="#1d2a31"/><circle cx="92" cy="115" r="10" fill="#fbf8f2"/><circle cx="92" cy="115" r="5" fill="#9aa5a9"/><path d="M92 106 v18 M83 115 h18" stroke="#9aa5a9" stroke-width="1.6"/></g>
-<g class="wheel" style="transform-origin: 216px 115px"><circle cx="216" cy="115" r="16" fill="#1d2a31"/><circle cx="216" cy="115" r="10" fill="#fbf8f2"/><circle cx="216" cy="115" r="5" fill="#9aa5a9"/><path d="M216 106 v18 M207 115 h18" stroke="#9aa5a9" stroke-width="1.6"/></g>
-<path class="heart" d="M139 18 c-3 -5 -10 -3 -9 2 c1 4 9 8 9 8 s8 -4 9 -8 c1 -5 -6 -7 -9 -2 z" fill="#e07a5f"/></svg>
-            <animateMotion dur="6.5s" begin="0s" fill="freeze" rotate="0" calcMode="spline" keyTimes="0;1" keySplines=".35 0 .45 1" path="M250 70 C226.7 93.3 110.0 163.3 110 210 C110.0 256.7 250.0 303.3 250 350 C250.0 396.7 110.0 443.3 110 490 C110.0 536.7 250.0 583.3 250 630 C250.0 676.7 110.0 723.3 110 770 C110.0 816.7 226.7 886.7 250 910"/>
-          </g>
-        </svg>
+    </div>
     </div>
 
     <div class="card iban-card">
@@ -671,7 +614,7 @@
   <p class="footer-date">22 &middot; 05 &middot; 2027</p>
 </footer>
 
-<script src="script.js?v=12"></script>
-<script src="main.js?v=12"></script>
+<script src="script.js?v=13"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>
