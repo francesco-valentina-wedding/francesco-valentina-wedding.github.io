@@ -1,4 +1,4 @@
-// Top bar, full-screen menu, guest poll.
+// Top bar, full-screen menu, guest poll, honeymoon road animation.
 // Countdown, weather, RSVP and copy buttons live in script.js.
 
 (function () {
@@ -39,8 +39,8 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) close(true); });
 })();
 
-// The RSVP Apps Script also stores poll votes (see
-// google-apps-script.gs), so every form on the page talks to the same endpoint.
+// The RSVP Apps Script also stores poll votes (see google-apps-script.gs), so
+// every form on the page talks to the same endpoint.
 const SHEET_URL = document.getElementById('rsvp-form')?.action;
 
 function storageGet(key, fallback) {
@@ -50,10 +50,9 @@ function storageSet(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private mode */ }
 }
 
-// Guest poll. Votes are kept on the device (to show the guest's own choice) and
-// sent to the sheet; tallies come back from the sheet so everyone sees the
-// running results. An anonymous per-device id lets a guest change their mind:
-// the sheet counts only the latest vote per id and question.
+// Guest poll. Guests only see their own choice; the running results are for the
+// couple and live in the "Risultati" sheet. An anonymous per-device id lets a
+// guest change their mind: the sheet counts only the latest vote per id.
 (function () {
   const poll = document.querySelector('.poll');
   if (!poll) return;
@@ -66,75 +65,61 @@ function storageSet(key, value) {
     storageSet('fv-voter', voter);
   }
   const votes = storageGet('fv-poll', {});
-  let tallies = null;
-
-  function bars(q) {
-    const t = tallies && tallies[q.dataset.poll];
-    const mine = votes[q.dataset.poll];
-    let box = q.querySelector('.poll-bars');
-    if (!mine || !t) { if (box) box.remove(); return; }
-    const total = Object.values(t).reduce((a, b) => a + b, 0) || 1;
-    if (!box) { box = document.createElement('div'); box.className = 'poll-bars'; q.appendChild(box); }
-    box.innerHTML = ['Francesco', 'Valentina'].map((name) => {
-      const pct = Math.round(((t[name] || 0) / total) * 100);
-      return `<div class="bar${name === mine ? ' mine' : ''}"><span>${name}</span>` +
-        `<span class="bar-track"><span class="bar-fill" style="--w:${pct}%"></span></span>` +
-        `<span class="bar-pct">${pct}%</span></div>`;
-    }).join('') + `<p class="poll-total">${total} ${total === 1 ? 'voto' : 'voti'}</p>`;
-  }
 
   function paint() {
     questions.forEach((q) => {
       q.querySelectorAll('[data-vote]').forEach((b) => {
         b.setAttribute('aria-pressed', String(votes[q.dataset.poll] === b.dataset.vote));
       });
-      bars(q);
     });
   }
 
-  async function loadTallies() {
-    if (!SHEET_URL) return;
-    try {
-      const res = await fetch(`${SHEET_URL}?action=poll`);
-      const data = await res.json();
-      if (data.result === 'success') { tallies = data.tallies || {}; paint(); }
-    } catch { /* results stay hidden; the guest's own vote is still shown */ }
-  }
-
-  async function send(question, answer) {
+  function send(question, answer) {
     if (!SHEET_URL) return;
     const body = new FormData();
     body.append('type', 'vote');
     body.append('voter', voter);
     body.append('question', question);
     body.append('answer', answer);
-    try { await fetch(SHEET_URL, { method: 'POST', body }); } catch { /* keep the local vote */ }
+    fetch(SHEET_URL, { method: 'POST', body }).catch(() => { /* keep the local vote */ });
   }
 
   questions.forEach((q) => {
     q.querySelectorAll('[data-vote]').forEach((b) => {
-      b.addEventListener('click', async () => {
-        const previous = votes[q.dataset.poll];
+      b.addEventListener('click', () => {
+        if (votes[q.dataset.poll] === b.dataset.vote) return;
         votes[q.dataset.poll] = b.dataset.vote;
         storageSet('fv-poll', votes);
-        // Optimistic tally so the bars move at once, before the sheet answers.
-        if (tallies) {
-          const t = tallies[q.dataset.poll] = tallies[q.dataset.poll] || {};
-          if (previous && previous !== b.dataset.vote) t[previous] = Math.max(0, (t[previous] || 1) - 1);
-          if (previous !== b.dataset.vote) t[b.dataset.vote] = (t[b.dataset.vote] || 0) + 1;
-        }
         paint();
         const done = questions.every((x) => votes[x.dataset.poll]);
         result.textContent = done
           ? 'Scommesse chiuse! I verdetti il 22 maggio 😉'
           : `Segnato: ${b.dataset.vote}! Lo scopriremo il 22 maggio…`;
-        await send(q.dataset.poll, b.dataset.vote);
-        loadTallies();
+        send(q.dataset.poll, b.dataset.vote);
       });
     });
   });
 
   paint();
-  loadTallies();
 })();
 
+// Honeymoon road: the car drives along the route as the section scrolls past.
+// --drive goes from 0 (section entering from below) to 1 (section centred and
+// beyond); the CSS turns it into a position along the road.
+(function () {
+  const trip = document.querySelector('.trip');
+  if (!trip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const r = trip.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const p = (vh - r.top) / (vh * 0.55 + r.height * 0.6);
+    trip.style.setProperty('--drive', Math.min(1, Math.max(0, p)).toFixed(3));
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();

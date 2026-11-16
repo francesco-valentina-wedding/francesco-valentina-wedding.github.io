@@ -9,11 +9,11 @@ branch `main`, root). Lo sviluppo avviene su `develop`, il merge su `main` pubbl
 ```text
 index.html               la pagina
 style.css                stile (palette e font nel blocco :root in cima)
-main.js                  menu, sondaggio "scommesse"
+main.js                  menu, sondaggio "scommesse", macchinina del viaggio di nozze
 script.js                countdown, meteo, RSVP, copia IBAN, animazioni
 google-apps-script.gs    copia dello script Google collegato al foglio (vedi sotto)
 matrimonio.ics           evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
-foto/                    foto del sito; citta-*.jpg vengono da Wikimedia Commons
+foto/                    foto del sito; citta-*.jpg e viaggio-*.jpg vengono da Wikimedia Commons
 foto/og-image.jpg        anteprima per WhatsApp / Facebook (1200×630)
 ```
 
@@ -25,22 +25,23 @@ di `style.css`, `main.js` o `script.js` va incrementato `N`, altrimenti i browse
 degli invitati continuano a usare la versione vecchia.
 
 **Crediti foto:** `citta-corato.jpg` è CC BY-SA 4.0 (FioreArchive) e l'attribuzione
-sulla foto va mantenuta; `citta-bari.jpg` è CC0 (Bernard Gagnon).
+sulla foto va mantenuta; `citta-bari.jpg` e le `viaggio-*.jpg` sono CC0 o pubblico dominio.
 
 ## Prima di mandare il link agli invitati
 
 - [ ] Verificare la stima "circa 25 minuti" dalla chiesa al ricevimento.
 
-## Foglio Google: RSVP, scommesse, dediche
+## Foglio Google: RSVP e scommesse
 
 Lo script Apps Script (codice in `google-apps-script.gs`) riceve tutto ciò che
 inviano i moduli della pagina e lo scrive nel foglio:
 
 - **RSVP** → scheda `RSVP`. Ogni risposta va anche a Formspree (`FORMSPREE_URL`
   in `script.js`): il ringraziamento compare se almeno uno dei due conferma.
-- **Scommesse** → scheda `Scommesse` (votante anonimo, domanda, risposta).
-  `GET ?action=poll` restituisce i conteggi, contando solo l'ultimo voto di
-  ciascun invitato per domanda: sono le percentuali mostrate sulla pagina.
+- **Scommesse** → scheda `Scommesse` (votante anonimo, domanda, risposta) e
+  riepilogo nella scheda `Risultati`, riscritta a ogni voto contando solo
+  l'ultimo voto di ciascun invitato per domanda. Gli invitati vedono solo la
+  propria scelta: i risultati non sono leggibili dal sito.
 
 Le schede e le intestazioni si creano da sole. Dopo ogni modifica dello script:
 
