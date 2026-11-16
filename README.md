@@ -1,4 +1,4 @@
-# Invito di matrimonio — Francesco & Valentina
+# Invito di matrimonio — Valentina & Francesco
 
 Sito statico autonomo: nessuna build, nessuna dipendenza da installare.
 Pubblicato su `https://francesco-valentina-wedding.github.io/` (GitHub Pages,

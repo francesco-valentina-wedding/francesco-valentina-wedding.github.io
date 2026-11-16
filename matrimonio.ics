@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Francesco e Valentina//Matrimonio//IT
+PRODID:-//Valentina e Francesco//Matrimonio//IT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
@@ -8,7 +8,7 @@ UID:matrimonio-20270522@francesco-valentina-wedding.github.io
 DTSTAMP:20261113T120000Z
 DTSTART:20270522T090000Z
 DTEND:20270522T190000Z
-SUMMARY:Matrimonio Francesco & Valentina
+SUMMARY:Matrimonio Valentina & Francesco
 LOCATION:Santuario Santa Maria di Colonna\, Piazza Marina di Colonna\, Tran
  i
 DESCRIPTION:Cerimonia alle 11:00 al Santuario Santa Maria di Colonna (Trani
@@ -17,7 +17,7 @@ DESCRIPTION:Cerimonia alle 11:00 al Santuario Santa Maria di Colonna (Trani
 URL:https://francesco-valentina-wedding.github.io/
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Domani il matrimonio di Francesco & Valentina
+DESCRIPTION:Domani il matrimonio di Valentina & Francesco
 TRIGGER:-P1D
 END:VALARM
 END:VEVENT

@@ -21,7 +21,7 @@ const POLL_LABELS = {
   divano: 'Si addormenta per primo sul divano',
   ragione: 'Ha sempre ragione'
 };
-const POLL_ANSWERS = ['Francesco', 'Valentina'];
+const POLL_ANSWERS = ['Valentina', 'Francesco'];
 
 // Sheets evaluates cell text starting with these characters as a formula.
 function asText(value) {
@@ -80,7 +80,7 @@ function doPost(e) {
 // each guest for each question counts, so changing one's mind is not counted twice.
 function writeResults(votesSheet) {
   const tallies = {};
-  POLL_QUESTIONS.forEach(function (q) { tallies[q] = { Francesco: 0, Valentina: 0 }; });
+  POLL_QUESTIONS.forEach(function (q) { tallies[q] = { Valentina: 0, Francesco: 0 }; });
   if (votesSheet.getLastRow() >= 2) {
     const rows = votesSheet.getRange(2, 1, votesSheet.getLastRow() - 1, 4).getValues();
     const latest = {};
@@ -91,10 +91,10 @@ function writeResults(votesSheet) {
     });
   }
 
-  const out = [['Domanda', 'Francesco', 'Valentina', 'Voti', '% Francesco', '% Valentina']];
+  const out = [['Domanda', 'Valentina', 'Francesco', 'Voti', '% Valentina', '% Francesco']];
   POLL_QUESTIONS.forEach(function (q) {
     const f = tallies[q].Francesco, v = tallies[q].Valentina, n = f + v;
-    out.push([POLL_LABELS[q], f, v, n, n ? Math.round(f / n * 100) + '%' : '', n ? Math.round(v / n * 100) + '%' : '']);
+    out.push([POLL_LABELS[q], v, f, n, n ? Math.round(v / n * 100) + '%' : '', n ? Math.round(f / n * 100) + '%' : '']);
   });
   out.push(['Aggiornato il', new Date(), '', '', '', '']);
 
