@@ -1,3 +1,12 @@
+// The shared link always opens on the first page: drop any #section left in
+// the address (e.g. copied after using the menu) and don't restore old scroll.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) {
+  history.replaceState(null, '', location.pathname + location.search);
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+}
+
 // Top bar, full-screen menu, guest poll, honeymoon road map animation.
 // Countdown, weather, RSVP and copy buttons live in script.js.
 
