@@ -14,7 +14,7 @@ script.js                countdown, meteo, RSVP, copia IBAN, animazioni
 google-apps-script.gs    copia dello script Google collegato al foglio (vedi sotto)
 matrimonio.ics           evento per iPhone / Outlook (righe CRLF, vedi .gitattributes)
 foto/                    foto del sito; citta-*.jpg e le tappe viaggio-*.jpg vengono da Wikimedia Commons
-foto/og-busta.jpg      anteprima per WhatsApp / Facebook (1200×630); nuovo nome = cache di WhatsApp aggiornata
+foto/og-partecipazione.jpg      anteprima per WhatsApp / Facebook (1200×630); nuovo nome = cache di WhatsApp aggiornata
 ```
 
 Tutti i percorsi sono relativi. Font, mappe, Booking, Google Calendar, Google
